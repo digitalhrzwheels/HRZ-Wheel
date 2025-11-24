@@ -14,7 +14,8 @@ const query = `*[_type == "post"] | order(publishedAt desc) {
   publishedAt,
   mainImage,
   "brief": pt::text(body),
-  "tags": categories[]->{title}
+  "brief": pt::text(body),
+  tags
 }`;
 
 let posts = [];
@@ -153,9 +154,9 @@ function getReadTime(text: string) {
                                     
                                     {post.tags && post.tags.length > 0 && (
                                         <div class="flex flex-wrap gap-2 mb-4">
-                                            {post.tags.slice(0, 3).map((tag: any) => (
+                                            {post.tags.slice(0, 3).map((tag: string) => (
                                                 <span class="bg-gold-500/10 text-gold-400 px-3 py-1 rounded-lg text-xs font-semibold border border-gold-500/30 backdrop-blur-sm">
-                                                    {tag.title}
+                                                    {tag}
                                                 </span>
                                             ))}
                                         </div>
