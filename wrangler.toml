@@ -1,0 +1,13 @@
+# Configuración de Cloudflare Pages
+
+name = "hrz-wheels"
+compatibility_date = "2024-01-01"
+pages_build_output_dir = "dist"
+
+# Variables de entorno (agregar en Cloudflare Dashboard)
+# SYNC_SECRET = "tu-clave-secreta-para-sync-manual"
+
+# KV Namespace (opcional, para cache)
+# [[kv_namespaces]]
+# binding = "BLOG_CACHE"
+# id = "tu-namespace-id"

@@ -1,0 +1,20 @@
+---
+// Pre-renderizar esta página como estática
+export const prerender = true;
+
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import ContactForm from "../components/Contact.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<Layout
+    title="Get a Free Quote | HRZ Wheel Repair"
+    description="Request a free quote for mobile wheel repair in Los Angeles & Orange County. Expert curb rash repair, alloy wheel refinishing & bumper spot repair. Same-day service available. Call (626) 863-2885!"
+>
+    <Header />
+    <main>
+        <ContactForm />
+    </main>
+    <Footer />
+</Layout>

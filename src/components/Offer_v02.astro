@@ -1,0 +1,282 @@
+---
+import { Image } from "astro:assets";
+import dodgeVideo from "../assets/images/dodge video.jpg";
+---
+
+<section
+    id="offer"
+    class="py-16 md:py-12 lg:py-32 bg-zinc-950 relative overflow-hidden"
+>
+    <!-- Background Decoration -->
+    <div class="absolute inset-0 pointer-events-none">
+        <div
+            class="absolute top-1/4 -left-24 w-96 h-96 bg-gold-500/10 rounded-full blur-3xl"
+        >
+        </div>
+        <div
+            class="absolute top-1/2 right-0 w-64 h-64 bg-bmw-blue/10 rounded-full blur-3xl"
+        >
+        </div>
+    </div>
+
+    <div class="container mx-auto px-6 relative z-10">
+        <div class="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+            <!-- Left Column: Content -->
+            <div class="space-y-6 lg:space-y-8 order-1">
+                <!-- Title -->
+                <div>
+                    <h2
+                        class="text-3xl md:text-5xl font-display font-bold text-white leading-tight"
+                    >
+                        Affordable <span
+                            class="text-transparent bg-clip-text bg-gradient-to-r from-gold-400 to-white"
+                        >
+                            Mobile Wheel Repair
+                        </span><br />
+                        Los Angeles & Orange County
+                    </h2>
+                    <div class="flex items-center gap-3 mt-4">
+                        <div
+                            class="w-24 h-1 bg-gradient-to-r from-gold-500 to-gold-400 rounded-full"
+                        >
+                        </div>
+                        <div class="w-2 h-2 bg-gold-500 rounded-full"></div>
+                        <div class="w-2 h-2 bg-bmw-blue rounded-full"></div>
+                    </div>
+                </div>
+
+                <!-- Pricing -->
+                <div class="space-y-1">
+                    <p
+                        class="text-gray-400 text-xs font-bold tracking-[0.2em] uppercase"
+                    >
+                        Starting At
+                    </p>
+                    <p
+                        class="text-5xl md:text-6xl font-display font-bold text-white"
+                    >
+                        $125<span
+                            class="text-lg md:text-xl text-gray-400 font-normal"
+                            >/Per Wheel</span
+                        >
+                    </p>
+                </div>
+
+                <!-- Premium Services -->
+                <div class="space-y-3">
+                    <h3
+                        class="text-white text-sm font-bold tracking-[0.2em] uppercase border-l-4 border-gold-500 pl-6"
+                    >
+                        Premium Mobile Services
+                    </h3>
+                    <p class="text-gray-300 text-base leading-relaxed">
+                        HRZ Wheel Repair provides expert mobile rim and alloy
+                        wheel repair services throughout Orange County and Los
+                        Angeles. We specialize in curb rash repair, alloy wheel refinishing, scratches,
+                        and cosmetic damage—all performed right at your location with same-day service available.
+                    </p>
+                </div>
+
+                <!-- Call Now Button -->
+                <div>
+                    <a
+                        href="tel:+16268632885"
+                        class="inline-flex items-center justify-center w-full sm:w-auto gap-3 px-8 py-4 bg-gradient-to-r from-gold-500 to-gold-600 hover:from-gold-600 hover:to-gold-700 text-black font-bold rounded-full transition-all duration-300 shadow-lg shadow-gold-500/20 hover:shadow-gold-500/40 hover:scale-105"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                            class="w-5 h-5"
+                        >
+                            <path
+                                fill-rule="evenodd"
+                                d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                        Call Now: (626) 863-2885
+                    </a>
+                </div>
+            </div>
+
+            <!-- Right Column: Video -->
+            <div class="relative order-2">
+                <!-- Decorative Frame -->
+                <div
+                    class="absolute -inset-4 bg-gradient-to-br from-gold-500/20 to-bmw-blue/20 rounded-3xl blur-2xl"
+                >
+                </div>
+
+                <button
+                    id="video-trigger"
+                    class="relative w-full aspect-video rounded-2xl overflow-hidden shadow-2xl cursor-pointer group border border-white/10"
+                >
+                    <!-- Video Thumbnail -->
+                    <Image
+                        src={dodgeVideo}
+                        alt="Watch professional wheel repair process - Mobile service in Los Angeles and Orange County"
+                        title="HRZ Wheel Repair Process Video - See Our Expert Craftsmanship"
+                        class="w-full h-full object-cover group-hover:opacity-90 transition-opacity duration-300"
+                        widths={[400, 800, 1200]}
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                    />
+
+                    <!-- Shimmer Effect on Hover -->
+                    <div
+                        class="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"
+                    >
+                    </div>
+
+                    <!-- Play Button Overlay -->
+                    <div
+                        class="absolute inset-0 flex items-center justify-center"
+                    >
+                        <div
+                            class="w-16 h-16 md:w-20 md:h-20 bg-black/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-white/30 group-hover:scale-110 transition-transform duration-300"
+                        >
+                            <div
+                                class="w-12 h-12 md:w-16 md:h-16 bg-gold-500 rounded-full flex items-center justify-center shadow-lg shadow-gold-500/50"
+                            >
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 24 24"
+                                    fill="currentColor"
+                                    class="w-6 h-6 md:w-8 md:h-8 text-black ml-1"
+                                >
+                                    <path
+                                        fill-rule="evenodd"
+                                        d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Video Caption -->
+                    <div
+                        class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/90 to-transparent"
+                    >
+                        <p
+                            class="text-white font-medium text-sm tracking-wide flex items-center gap-2"
+                        >
+                            <span
+                                class="w-2 h-2 bg-red-500 rounded-full animate-pulse"
+                            ></span>
+                            Watch our restoration process
+                        </p>
+                    </div>
+                </button>
+
+                <!-- Corner Accent Decorations -->
+                <div
+                    class="absolute -bottom-4 -left-4 w-24 h-24 border-l-2 border-b-2 border-gold-500/20 rounded-bl-3xl"
+                >
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Video Lightbox -->
+<div
+    id="video-lightbox"
+    class="fixed inset-0 bg-black/95 backdrop-blur-sm z-50 hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300"
+>
+    <!-- Close Button -->
+    <button
+        id="close-video"
+        class="absolute top-8 right-8 w-12 h-12 rounded-full bg-zinc-900 border border-white/10 hover:border-gold-500 hover:bg-gold-500/10 transition-all duration-300 flex items-center justify-center z-10"
+        aria-label="Close video"
+    >
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="2"
+            stroke="currentColor"
+            class="w-6 h-6 text-white"
+        >
+            <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+    </button>
+
+    <!-- Video Container -->
+    <div class="w-full max-w-6xl mx-auto relative">
+        <div
+            class="absolute -inset-2 bg-gradient-to-br from-gold-500/30 to-bmw-blue/30 rounded-2xl blur-xl"
+        >
+        </div>
+        <div
+            class="relative aspect-video rounded-2xl overflow-hidden shadow-2xl"
+        >
+            <iframe
+                id="youtube-player"
+                class="w-full h-full"
+                src=""
+                title="HRZ Wheel Repair Process"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+        </div>
+    </div>
+</div>
+
+<script>
+    const videoTrigger = document.getElementById("video-trigger");
+    const lightbox = document.getElementById("video-lightbox");
+    const closeButton = document.getElementById("close-video");
+    const youtubePlayer = document.getElementById(
+        "youtube-player",
+    ) as HTMLIFrameElement;
+
+    const YOUTUBE_VIDEO_ID = "pDHNviUCGm0";
+
+    function openLightbox() {
+        if (!lightbox) return;
+
+        // Set video source with autoplay
+        youtubePlayer.src = `https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=1&rel=0`;
+
+        // Show lightbox
+        lightbox.classList.remove("hidden");
+        lightbox.classList.add("flex");
+        setTimeout(() => lightbox.classList.add("opacity-100"), 10);
+
+        // Prevent body scroll
+        document.body.style.overflow = "hidden";
+    }
+
+    function closeLightbox() {
+        if (!lightbox) return;
+
+        // Hide lightbox
+        lightbox.classList.remove("opacity-100");
+        setTimeout(() => {
+            lightbox.classList.remove("flex");
+            lightbox.classList.add("hidden");
+        }, 300);
+
+        // Stop video
+        youtubePlayer.src = "";
+
+        // Restore body scroll
+        document.body.style.overflow = "";
+    }
+
+    // Event listeners
+    videoTrigger?.addEventListener("click", openLightbox);
+    closeButton?.addEventListener("click", closeLightbox);
+
+    // Close on backdrop click
+    lightbox?.addEventListener("click", (e) => {
+        if (e.target === lightbox) closeLightbox();
+    });
+
+    // Close on ESC key
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeLightbox();
+    });
+</script>

@@ -1,0 +1,299 @@
+---
+// Pre-renderizar esta página como estática
+export const prerender = true;
+
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { Image } from "astro:assets";
+
+// Import gallery images
+import img1 from "../assets/images/Gallery/20160913_141132.webp";
+import img2 from "../assets/images/Gallery/30AB94D0-13DD-4DE1-8EBA-2B48F78A2F6E.webp";
+import img3 from "../assets/images/Gallery/796184D7-58BC-4738-8202-B25FC1B2D106.webp";
+import img4 from "../assets/images/Gallery/B14631CC-D4AB-4FDD-BDF0-8BB062B1EDB2.webp";
+import img5 from "../assets/images/Gallery/Ford Fusion befor and after.webp";
+import img6 from "../assets/images/Gallery/IMG_6259.webp";
+import img7 from "../assets/images/Gallery/IMG_6563-2.webp";
+import img8 from "../assets/images/Gallery/Sequence 010.jpg";
+import img9 from "../assets/images/Gallery/Yelp_HRZ-Aaron-mercedes-S63.webp";
+
+const galleryImages = [
+    { src: img1, alt: "Professional alloy wheel repair before and after transformation Los Angeles", title: "Alloy Wheel Repair Before & After" },
+    { src: img2, alt: "Luxury vehicle curb rash repair and rim refinishing Orange County", title: "Premium Curb Rash Repair" },
+    { src: img3, alt: "Mobile wheel repair service curb damage restoration Los Angeles", title: "Mobile Curb Damage Repair" },
+    { src: img4, alt: "Damaged alloy wheel restoration and polishing service", title: "Alloy Wheel Restoration" },
+    { src: img5, alt: "Ford Fusion wheel repair before and after curb rash fix", title: "Ford Fusion Wheel Repair" },
+    { src: img6, alt: "Premium rim restoration and refinishing mobile service LA", title: "Premium Rim Refinishing" },
+    { src: img7, alt: "Professional wheel repair work showcase Los Angeles Orange County", title: "Professional Wheel Repair Showcase" },
+    { src: img8, alt: "Mobile wheel repair service transformation before after photos", title: "Mobile Wheel Repair Transformation" },
+    { src: img9, alt: "Mercedes S63 AMG wheel repair customer review Yelp testimonial", title: "Mercedes S63 Wheel Repair - Customer Review" },
+];
+---
+
+<Layout
+    title="Gallery - Before & After Photos | HRZ Wheel Repair Los Angeles & Orange County"
+    description="Browse our professional wheel repair gallery. See real before & after photos of curb rash repair, rim refinishing & alloy wheel restoration. Mobile service in LA & OC. 5000+ wheels restored."
+>
+    <Header />
+    
+    <main class="min-h-screen bg-black pt-24 pb-16 relative overflow-hidden">
+        <!-- Background Effects -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+            <!-- Golden glow top right -->
+            <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-gold-500/20 rounded-full blur-[120px] animate-pulse"></div>
+            <!-- Blue glow left -->
+            <div class="absolute top-1/4 left-0 w-[500px] h-[500px] bg-blue-500/15 rounded-full blur-[100px]"></div>
+            <!-- Golden glow bottom -->
+            <div class="absolute bottom-0 right-1/3 w-[700px] h-[700px] bg-gold-500/10 rounded-full blur-[130px]"></div>
+            <!-- Blue accent middle -->
+            <div class="absolute top-1/2 right-1/4 w-[400px] h-[400px] bg-bmw-blue/10 rounded-full blur-[90px]"></div>
+        </div>
+
+        <!-- Hero Section -->
+        <section class="container mx-auto px-6 mb-16 relative z-10">
+            <div class="text-center max-w-3xl mx-auto">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+                    <span class="bg-gradient-to-r from-gold-500 to-white bg-clip-text text-transparent">
+                        Our Work
+                    </span>
+                </h1>
+                <p class="text-gray-300 text-lg md:text-xl leading-relaxed">
+                    Explore our portfolio of professional wheel repair transformations. 
+                    Real before & after photos showcasing curb rash repair, rim refinishing, and alloy wheel restoration.
+                    Over 5,000 wheels restored to perfection in Los Angeles & Orange County.
+                </p>
+            </div>
+        </section>
+
+        <!-- Gallery Grid -->
+        <section class="container mx-auto px-6 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {galleryImages.map((image, index) => (
+                    <div 
+                        class="gallery-item group relative overflow-hidden rounded-xl bg-zinc-900 border border-white/10 hover:border-gold-500/50 transition-all duration-300 cursor-pointer aspect-square"
+                        data-index={index}
+                    >
+                        <Image
+                            src={image.src}
+                            alt={image.alt}
+                            title={image.title}
+                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                            loading="lazy"
+                        />
+                        <!-- Overlay -->
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                            <div class="text-white">
+                                <p class="text-sm font-medium text-gold-500 mb-1">Click to view</p>
+                                <p class="text-xs text-gray-300">{image.title}</p>
+                            </div>
+                        </div>
+                        <!-- Zoom Icon -->
+                        <div class="absolute top-4 right-4 w-10 h-10 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 text-gold-500">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM10.5 7.5v6m3-3h-6" />
+                            </svg>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="container mx-auto px-6 mt-20 relative z-10">
+            <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-zinc-900 to-black border border-white/10 p-12 text-center">
+                <!-- Background Effect -->
+                <div class="absolute inset-0 bg-gradient-to-br from-gold-500/5 to-transparent"></div>
+                <div class="absolute top-0 right-0 w-96 h-96 bg-gold-500/10 rounded-full blur-3xl"></div>
+                
+                <div class="relative z-10">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4">
+                        <span class="bg-gradient-to-r from-gold-500 to-white bg-clip-text text-transparent">
+                            Ready to Restore Your Wheels?
+                        </span>
+                    </h2>
+                    <p class="text-gray-300 text-lg mb-8 max-w-2xl mx-auto">
+                        Get a free quote today and experience the same premium quality service
+                    </p>
+                    <a
+                        href="/quote"
+                        class="inline-block bg-gold-500 hover:bg-gold-400 text-black px-8 py-4 rounded-full font-bold text-lg transition-all transform hover:scale-105 shadow-lg shadow-gold-500/20"
+                    >
+                        Request a Free Quote
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="fixed inset-0 bg-black/95 backdrop-blur-xl z-50 hidden items-center justify-center p-4">
+        <!-- Close Button -->
+        <button
+            id="lightbox-close"
+            class="absolute top-6 right-6 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-all z-50 group"
+            aria-label="Close lightbox"
+        >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 group-hover:rotate-90 transition-transform duration-300">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+
+        <!-- Previous Button -->
+        <button
+            id="lightbox-prev"
+            class="absolute left-6 w-12 h-12 rounded-full bg-white/10 hover:bg-gold-500 flex items-center justify-center text-white transition-all z-50"
+            aria-label="Previous image"
+        >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+            </svg>
+        </button>
+
+        <!-- Next Button -->
+        <button
+            id="lightbox-next"
+            class="absolute right-6 w-12 h-12 rounded-full bg-white/10 hover:bg-gold-500 flex items-center justify-center text-white transition-all z-50"
+            aria-label="Next image"
+        >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+            </svg>
+        </button>
+
+        <!-- Image Container -->
+        <div id="lightbox-content" class="relative max-w-6xl max-h-[90vh] w-full h-full flex items-center justify-center">
+            <img
+                id="lightbox-image"
+                src=""
+                alt=""
+                class="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
+            />
+        </div>
+
+        <!-- Image Counter -->
+        <div class="absolute bottom-6 left-1/2 -translate-x-1/2 bg-black/50 backdrop-blur-sm px-6 py-3 rounded-full text-white text-sm font-medium">
+            <span id="lightbox-counter">1 / 9</span>
+        </div>
+    </div>
+
+    <Footer />
+
+    <script>
+        // Gallery and Lightbox functionality
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImage = document.getElementById('lightbox-image') as HTMLImageElement;
+        const lightboxCounter = document.getElementById('lightbox-counter');
+        const lightboxClose = document.getElementById('lightbox-close');
+        const lightboxPrev = document.getElementById('lightbox-prev');
+        const lightboxNext = document.getElementById('lightbox-next');
+
+        let currentIndex = 0;
+        const totalImages = galleryItems.length;
+
+        // Image sources (we'll populate this from the gallery items)
+        const imageSources: { src: string; alt: string }[] = [];
+
+        // Populate image sources from gallery items
+        galleryItems.forEach((item) => {
+            const img = item.querySelector('img');
+            if (img) {
+                imageSources.push({
+                    src: img.src,
+                    alt: img.alt
+                });
+            }
+        });
+
+        function openLightbox(index: number) {
+            currentIndex = index;
+            updateLightboxImage();
+            lightbox?.classList.remove('hidden');
+            lightbox?.classList.add('flex');
+            document.body.classList.add('overflow-hidden');
+        }
+
+        function closeLightbox() {
+            lightbox?.classList.add('hidden');
+            lightbox?.classList.remove('flex');
+            document.body.classList.remove('overflow-hidden');
+        }
+
+        function updateLightboxImage() {
+            if (lightboxImage && imageSources[currentIndex]) {
+                lightboxImage.src = imageSources[currentIndex].src;
+                lightboxImage.alt = imageSources[currentIndex].alt;
+            }
+            if (lightboxCounter) {
+                lightboxCounter.textContent = `${currentIndex + 1} / ${totalImages}`;
+            }
+        }
+
+        function showNext() {
+            currentIndex = (currentIndex + 1) % totalImages;
+            updateLightboxImage();
+        }
+
+        function showPrev() {
+            currentIndex = (currentIndex - 1 + totalImages) % totalImages;
+            updateLightboxImage();
+        }
+
+        // Event listeners
+        galleryItems.forEach((item, index) => {
+            item.addEventListener('click', () => openLightbox(index));
+        });
+
+        lightboxClose?.addEventListener('click', closeLightbox);
+        lightboxNext?.addEventListener('click', showNext);
+        lightboxPrev?.addEventListener('click', showPrev);
+
+        // Close on background click
+        lightbox?.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                closeLightbox();
+            }
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (!lightbox?.classList.contains('hidden')) {
+                if (e.key === 'Escape') closeLightbox();
+                if (e.key === 'ArrowRight') showNext();
+                if (e.key === 'ArrowLeft') showPrev();
+            }
+        });
+    </script>
+
+    <style>
+        /* Smooth animations */
+        #lightbox {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        #lightbox-image {
+            animation: zoomIn 0.3s ease-in-out;
+        }
+
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+    </style>
+</Layout>

@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+@theme {
+    --font-sans: 'Inter', sans-serif;
+    --font-display: 'Outfit', sans-serif;
+
+    --color-gold-400: #E5C158;
+    --color-gold-500: #D4AF37;
+    --color-gold-600: #B5952F;
+
+    --color-bmw-red: #E10600;
+    --color-bmw-blue: #0066B1;
+    --color-bmw-dark-blue: #002A5C;
+}
+
+@layer base {
+    html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 80px;
+        /* Offset for fixed header */
+        @apply bg-black text-white antialiased;
+    }
+
+    body {
+        @apply font-sans;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        @apply font-display font-bold;
+    }
+}

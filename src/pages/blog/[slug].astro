@@ -1,0 +1,929 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import { getHashnodePost } from "../../lib/hashnode";
+
+// Esta página se renderiza en el servidor (siempre actualizada)
+export const prerender = false;
+
+const HASHNODE_HOST = "hrzwheel.hashnode.dev";
+
+const { slug } = Astro.params;
+
+console.log("🔍 [Blog Slug Page] Requested slug:", slug);
+
+if (!slug) {
+    console.log("❌ [Blog Slug Page] No slug provided, redirecting to /blog");
+    return Astro.redirect("/blog", 302);
+}
+
+// Obtener el post directamente de Hashnode (siempre actualizado)
+let post = null;
+try {
+    console.log(
+        "📡 [Blog Slug Page] Fetching post from Hashnode:",
+        HASHNODE_HOST,
+        slug,
+    );
+    post = await getHashnodePost(HASHNODE_HOST, slug);
+    console.log(
+        "✅ [Blog Slug Page] Post fetched:",
+        post ? post.title : "null",
+    );
+} catch (error) {
+    console.error("❌ [Blog Slug Page] Error fetching post:", error);
+}
+
+if (!post) {
+    console.log("❌ [Blog Slug Page] Post not found, redirecting to /blog");
+    return Astro.redirect("/blog", 302);
+}
+
+console.log("🎉 [Blog Slug Page] Rendering post:", post.title);
+console.log(
+    "📝 [Blog Slug Page] Content HTML preview:",
+    post.content?.html?.substring(0, 500),
+);
+
+const seoTitle = post.seo?.title || post.title;
+const seoDescription = post.seo?.description || post.brief;
+---
+
+<Layout
+    title={`${seoTitle} - HRZ Wheels Blog`}
+    description={seoDescription}
+    image={post.coverImage?.url}
+>
+    <Header />
+
+    <!-- Hero Section with Cover Image -->
+    <section class="hero-section">
+        <!-- Cover Image Background -->
+        {
+            post.coverImage?.url && (
+                <div class="hero-image-container">
+                    <img
+                        src={post.coverImage.url}
+                        alt={post.title}
+                        class="hero-image"
+                    />
+                    <div class="hero-overlay" />
+                </div>
+            )
+        }
+
+        <div class="container mx-auto px-4 relative z-10">
+            <!-- Breadcrumb -->
+            <div class="breadcrumb">
+                <a href="/">Home</a>
+                <span>/</span>
+                <a href="/blog">Blog</a>
+                <span>/</span>
+                <span>Article</span>
+            </div>
+
+            <!-- Meta Info with Author -->
+            <div class="meta-author-container">
+                <div class="post-meta">
+                    <time datetime={post.publishedAt}>
+                        {
+                            new Date(post.publishedAt).toLocaleDateString(
+                                "en-US",
+                                {
+                                    year: "numeric",
+                                    month: "long",
+                                    day: "numeric",
+                                },
+                            )
+                        }
+                    </time>
+                    <span class="separator">•</span>
+                    <span class="read-time"
+                        >{post.readTimeInMinutes} min read</span
+                    >
+                    {
+                        post.author && (
+                            <>
+                                <span class="separator">•</span>
+                                <span class="author-inline">
+                                    By {post.author.name}
+                                </span>
+                            </>
+                        )
+                    }
+                </div>
+            </div>
+
+            <!-- Title -->
+            <h1 class="hero-title">
+                {post.title}
+            </h1>
+
+            <!-- Tags -->
+            {
+                post.tags && post.tags.length > 0 && (
+                    <div class="tags-container">
+                        {post.tags.map((tag) => (
+                            <span class="tag">{tag.name}</span>
+                        ))}
+                    </div>
+                )
+            }
+        </div>
+    </section>
+
+    <!-- Article Content -->
+    <article class="content-section">
+        <div class="container mx-auto px-4">
+            <div class="content-wrapper">
+                <!-- Content -->
+                <div
+                    class="prose"
+                    set:html={post.content?.html || post.brief}
+                />
+
+                <!-- Footer CTAs -->
+                <div class="article-footer">
+                    <a href="/blog" class="back-button">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke-width="2"
+                            stroke="currentColor"
+                            class="w-5 h-5"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"></path>
+                        </svg>
+                        Back to Blog
+                    </a>
+                    <a href="/quote" class="cta-button">
+                        Get Your Free Quote
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke-width="2"
+                            stroke="currentColor"
+                            class="w-5 h-5"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <Footer />
+</Layout>
+
+<style>
+    /* Hero Section with Image Background */
+    .hero-section {
+        position: relative;
+        min-height: 75vh;
+        display: flex;
+        align-items: flex-end;
+        padding: 140px 0 80px;
+        overflow: hidden;
+    }
+
+    .hero-image-container {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+    }
+
+    .hero-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+
+    .hero-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+            180deg,
+            rgba(0, 0, 0, 0.5) 0%,
+            rgba(0, 0, 0, 0.7) 50%,
+            rgba(0, 0, 0, 0.95) 100%
+        );
+    }
+
+    /* Fallback background when no image */
+    .hero-section:not(:has(.hero-image-container)) {
+        background: linear-gradient(180deg, #000 0%, #1a1a1a 100%);
+    }
+
+    .hero-section:not(:has(.hero-image-container))::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(
+            circle,
+            rgba(245, 158, 11, 0.08) 0%,
+            transparent 70%
+        );
+        animation: pulse 8s ease-in-out infinite;
+        z-index: 0;
+    }
+
+    @keyframes pulse {
+        0%,
+        100% {
+            transform: scale(1);
+            opacity: 0.5;
+        }
+        50% {
+            transform: scale(1.1);
+            opacity: 0.8;
+        }
+    }
+
+    .breadcrumb {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 2rem;
+        font-size: 0.875rem;
+        color: rgba(255, 255, 255, 0.6);
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .breadcrumb a {
+        color: rgba(245, 158, 11, 0.9);
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+
+    .breadcrumb a:hover {
+        color: #f59e0b;
+        text-shadow: 0 0 8px rgba(245, 158, 11, 0.6);
+    }
+
+    .breadcrumb span:last-child {
+        color: rgba(255, 255, 255, 0.8);
+    }
+
+    .meta-author-container {
+        margin-bottom: 1.5rem;
+    }
+
+    .post-meta {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.75rem 1.5rem;
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(20px);
+        border-radius: 50px;
+        font-size: 0.875rem;
+        color: rgba(255, 255, 255, 0.8);
+        border: 1px solid rgba(245, 158, 11, 0.3);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .separator {
+        color: rgba(245, 158, 11, 0.5);
+    }
+
+    .read-time {
+        color: #f59e0b;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    .author-inline {
+        color: rgba(255, 255, 255, 0.9);
+        font-weight: 600;
+    }
+
+    .hero-title {
+        font-size: 4rem;
+        font-weight: 900;
+        line-height: 1.1;
+        margin-bottom: 2rem;
+        max-width: 1100px;
+        color: #fff;
+        text-shadow:
+            0 2px 4px rgba(0, 0, 0, 0.5),
+            0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .tags-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+    }
+
+    .tag {
+        position: relative;
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(15px);
+        color: #f59e0b;
+        padding: 0.625rem 1.25rem;
+        border-radius: 20px;
+        font-size: 0.875rem;
+        font-weight: 700;
+        border: 1px solid rgba(245, 158, 11, 0.4);
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .tag::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: 20px;
+        padding: 1px;
+        background: linear-gradient(
+            135deg,
+            rgba(245, 158, 11, 0.5),
+            transparent
+        );
+        -webkit-mask:
+            linear-gradient(#fff 0 0) content-box,
+            linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+    }
+
+    .tag:hover {
+        background: rgba(245, 158, 11, 0.3);
+        border-color: rgba(245, 158, 11, 0.7);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 16px rgba(245, 158, 11, 0.4);
+    }
+
+    /* Content Section */
+    .content-section {
+        background: #000;
+        padding: 80px 0 120px;
+    }
+
+    .content-wrapper {
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    /* Prose Styles */
+    .prose {
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 1.125rem;
+        line-height: 1.8;
+    }
+
+    .prose :global(h1) {
+        font-size: 3rem;
+        font-weight: 900;
+        margin-top: 3rem;
+        margin-bottom: 2rem;
+        background: linear-gradient(135deg, #f59e0b 0%, #eab308 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        line-height: 1.15;
+    }
+
+    .prose :global(h2) {
+        font-size: 2.5rem;
+        font-weight: 800;
+        margin-top: 4rem;
+        margin-bottom: 1.5rem;
+        background: linear-gradient(135deg, #f59e0b 0%, #eab308 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        line-height: 1.2;
+    }
+
+    .prose :global(h3) {
+        font-size: 1.875rem;
+        font-weight: 700;
+        margin-top: 3rem;
+        margin-bottom: 1rem;
+        color: rgba(245, 158, 11, 0.95);
+    }
+
+    .prose :global(h4) {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-top: 2.5rem;
+        margin-bottom: 0.75rem;
+        color: rgba(245, 158, 11, 0.85);
+    }
+
+    .prose :global(h5) {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-top: 2rem;
+        margin-bottom: 0.5rem;
+        color: rgba(255, 255, 255, 0.9);
+    }
+
+    .prose :global(h6) {
+        font-size: 1.125rem;
+        font-weight: 600;
+        margin-top: 1.5rem;
+        margin-bottom: 0.5rem;
+        color: rgba(255, 255, 255, 0.8);
+    }
+
+    .prose :global(p) {
+        margin-bottom: 1.75rem;
+        color: rgba(255, 255, 255, 0.85);
+    }
+
+    .prose :global(a) {
+        color: #f59e0b;
+        text-decoration: none;
+        font-weight: 600;
+        border-bottom: 2px solid rgba(245, 158, 11, 0.3);
+        transition: all 0.3s ease;
+        position: relative;
+    }
+
+    .prose :global(a:hover) {
+        border-bottom-color: #f59e0b;
+        text-shadow: 0 0 8px rgba(245, 158, 11, 0.5);
+    }
+
+    /* iframes simples - contenedor con padding-bottom */
+    .prose :global(iframe) {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+    }
+
+    /* Wrapper para iframes directos */
+    .prose :global(p:has(> iframe)) {
+        position: relative;
+        width: 100%;
+        padding-bottom: 56.25%; /* 16:9 */
+        height: 0;
+        margin: 2rem 0;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+        border: 2px solid rgba(245, 158, 11, 0.3);
+    }
+
+    /* Hashnode embeds - YouTube y otros */
+    .prose :global(.embed),
+    .prose :global([data-node-type="embed"]) {
+        position: relative;
+        width: 100%;
+        padding-bottom: 56.25%; /* 16:9 */
+        height: 0;
+        margin: 2rem 0;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+        border: 2px solid rgba(245, 158, 11, 0.3);
+    }
+
+    .prose :global(.embed iframe),
+    .prose :global([data-node-type="embed"] iframe) {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+    }
+
+    /* Oembed wrapper de Hashnode */
+    .prose :global(.oembed),
+    .prose :global(.oembed-wrapper) {
+        position: relative;
+        width: 100%;
+        padding-bottom: 56.25%; /* 16:9 */
+        height: 0;
+        margin: 2rem 0;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+        border: 2px solid rgba(245, 158, 11, 0.3);
+    }
+
+    .prose :global(.oembed iframe),
+    .prose :global(.oembed-wrapper iframe) {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+    }
+
+    .prose :global(ul),
+    .prose :global(ol) {
+        margin-bottom: 2rem;
+        padding-left: 2rem;
+    }
+
+    .prose :global(li) {
+        margin-bottom: 0.75rem;
+        color: rgba(255, 255, 255, 0.8);
+        line-height: 1.7;
+    }
+
+    .prose :global(li::marker) {
+        color: #f59e0b;
+        font-weight: 700;
+    }
+
+    .prose :global(strong) {
+        color: #f59e0b;
+        font-weight: 700;
+    }
+
+    .prose :global(em) {
+        color: rgba(245, 158, 11, 0.9);
+        font-style: italic;
+    }
+
+    .prose :global(img) {
+        max-width: 100%;
+        height: auto;
+        border-radius: 20px;
+        margin: 3rem 0;
+        border: 1px solid rgba(245, 158, 11, 0.2);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    .prose :global(blockquote) {
+        border-left: 4px solid #f59e0b;
+        padding: 1.5rem 1.5rem 1.5rem 2rem;
+        margin: 3rem 0;
+        font-style: italic;
+        color: rgba(255, 255, 255, 0.8);
+        background: rgba(245, 158, 11, 0.05);
+        border-radius: 0 12px 12px 0;
+        box-shadow: inset 0 1px 0 rgba(245, 158, 11, 0.1);
+        font-size: 1.15rem;
+        line-height: 1.8;
+    }
+
+    .prose :global(blockquote p) {
+        margin-bottom: 0;
+    }
+
+    .prose :global(code) {
+        background: rgba(245, 158, 11, 0.15);
+        color: #eab308;
+        padding: 0.3rem 0.6rem;
+        border-radius: 6px;
+        font-size: 0.9em;
+        font-family: "Courier New", monospace;
+        border: 1px solid rgba(245, 158, 11, 0.25);
+        font-weight: 500;
+    }
+
+    .prose :global(pre) {
+        background: #0a0a0a;
+        color: #f3f4f6;
+        padding: 2rem;
+        border-radius: 16px;
+        overflow-x: auto;
+        margin: 3rem 0;
+        border: 1px solid rgba(245, 158, 11, 0.2);
+        box-shadow:
+            inset 0 2px 8px rgba(0, 0, 0, 0.3),
+            0 4px 12px rgba(0, 0, 0, 0.4);
+    }
+
+    .prose :global(pre code) {
+        background: transparent;
+        padding: 0;
+        border: none;
+        color: inherit;
+    }
+
+    .prose :global(table) {
+        width: 100%;
+        margin: 3rem 0;
+        border-collapse: collapse;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .prose :global(th) {
+        background: rgba(245, 158, 11, 0.15);
+        color: #f59e0b;
+        padding: 1rem 1.5rem;
+        text-align: left;
+        font-weight: 700;
+        border-bottom: 2px solid rgba(245, 158, 11, 0.3);
+    }
+
+    .prose :global(td) {
+        padding: 1rem 1.5rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        color: rgba(255, 255, 255, 0.8);
+    }
+
+    .prose :global(tr:hover td) {
+        background: rgba(245, 158, 11, 0.05);
+    }
+
+    .prose :global(hr) {
+        border: none;
+        height: 2px;
+        background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(245, 158, 11, 0.3),
+            transparent
+        );
+        margin: 4rem 0;
+    }
+
+    /* Hide Hashnode's embed loading placeholders */
+    .prose :global(.embed-loading),
+    .prose :global(.loadingRow) {
+        display: none;
+    }
+
+    /* YouTube Video Embed - Responsive 16:9 */
+    .prose :global(.video-embed) {
+        position: relative;
+        width: 100%;
+        padding-bottom: 56.25%; /* 16:9 aspect ratio */
+        margin: 3rem 0;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+        border: 2px solid rgba(245, 158, 11, 0.3);
+        height: 0;
+    }
+
+    .prose :global(.video-embed iframe) {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+    }
+
+    /* Article Footer */
+    .article-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 5rem;
+        padding-top: 3rem;
+        border-top: 2px solid rgba(245, 158, 11, 0.2);
+        gap: 1.5rem;
+    }
+
+    .back-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        color: rgba(255, 255, 255, 0.7);
+        text-decoration: none;
+        font-weight: 600;
+        padding: 1rem 2rem;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease;
+        background: rgba(255, 255, 255, 0.05);
+    }
+
+    .back-button:hover {
+        color: #f59e0b;
+        border-color: #f59e0b;
+        background: rgba(245, 158, 11, 0.1);
+        transform: translateX(-4px);
+        box-shadow: 0 4px 12px rgba(245, 158, 11, 0.2);
+    }
+
+    .cta-button {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        background: linear-gradient(135deg, #f59e0b 0%, #eab308 100%);
+        color: #000;
+        padding: 1rem 2.5rem;
+        border-radius: 12px;
+        text-decoration: none;
+        font-weight: 800;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        box-shadow:
+            0 0 20px rgba(245, 158, 11, 0.4),
+            0 4px 12px rgba(0, 0, 0, 0.3);
+        overflow: hidden;
+    }
+
+    .cta-button::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.3),
+            transparent
+        );
+        transition: left 0.5s ease;
+    }
+
+    .cta-button:hover::before {
+        left: 100%;
+    }
+
+    .cta-button:hover {
+        transform: translateY(-3px);
+        box-shadow:
+            0 0 30px rgba(245, 158, 11, 0.6),
+            0 8px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Responsive - Mobile and Tablets */
+    @media (max-width: 1024px) {
+        .hero-section {
+            min-height: 60vh;
+            padding: 100px 0 60px;
+        }
+
+        .hero-title {
+            font-size: 2.25rem;
+        }
+
+        .meta-author-container {
+            margin-bottom: 1.5rem;
+        }
+
+        .post-meta {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0;
+            background: transparent;
+            backdrop-filter: none;
+            border-radius: 0;
+            border: none;
+            box-shadow: none;
+            font-size: 0.875rem;
+        }
+
+        .post-meta .author-inline {
+            width: 100%;
+            order: -1;
+            font-size: 0.95rem;
+            padding: 0.625rem 1.25rem;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(20px);
+            border-radius: 50px;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            margin-bottom: 0.5rem;
+            display: inline-block;
+            width: fit-content;
+        }
+
+        .post-meta time,
+        .post-meta .read-time {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.875rem;
+        }
+
+        .post-meta .separator:last-of-type {
+            display: none;
+        }
+
+        .content-section {
+            padding: 60px 0 80px;
+        }
+
+        .prose {
+            font-size: 1rem;
+        }
+
+        .prose :global(p:first-of-type) {
+            font-size: 1.125rem;
+        }
+
+        .prose :global(h2) {
+            font-size: 1.875rem;
+        }
+
+        .prose :global(h3) {
+            font-size: 1.5rem;
+        }
+
+        .prose :global(h4) {
+            font-size: 1.25rem;
+        }
+
+        .prose :global(iframe) {
+            min-height: unset;
+        }
+
+        .article-footer {
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .back-button,
+        .cta-button {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+
+    @keyframes gradient {
+        0% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+</style>
+
+<script>
+    // Convert Hashnode YouTube links to embedded players
+    document.addEventListener("DOMContentLoaded", () => {
+        // Find all links that might be YouTube embeds
+        const embedLinks = document.querySelectorAll(
+            '.prose a[href*="youtube.com"], .prose a[href*="youtu.be"]',
+        );
+
+        console.log(`🔍 Found ${embedLinks.length} potential YouTube links`);
+
+        embedLinks.forEach((link) => {
+            const anchor = link as HTMLAnchorElement;
+            const url = anchor.href;
+            let videoId = null;
+
+            // Extract video ID from different YouTube URL formats
+            if (url.includes("youtube.com/watch")) {
+                const urlParams = new URLSearchParams(new URL(url).search);
+                videoId = urlParams.get("v");
+            } else if (url.includes("youtu.be/")) {
+                videoId = url.split("youtu.be/")[1]?.split("?")[0];
+            }
+
+            if (videoId) {
+                console.log(`📺 Converting YouTube video: ${videoId}`);
+
+                // Create wrapper div with proper aspect ratio
+                const wrapper = document.createElement("div");
+                wrapper.className = "video-embed";
+
+                // Create iframe with standard YouTube embed
+                const iframe = document.createElement("iframe");
+                iframe.src = `https://www.youtube.com/embed/${videoId}`;
+                iframe.title = "YouTube video player";
+                iframe.setAttribute("frameborder", "0");
+                iframe.setAttribute("allowfullscreen", "");
+                iframe.allow =
+                    "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+
+                wrapper.appendChild(iframe);
+
+                // Replace the link (and its parent wrappers) with the iframe
+                const embedWrapper =
+                    anchor.closest(".embed-wrapper") ||
+                    anchor.closest(".embed-card") ||
+                    anchor.parentElement;
+                if (embedWrapper && embedWrapper !== document.body) {
+                    embedWrapper.replaceWith(wrapper);
+                } else {
+                    anchor.replaceWith(wrapper);
+                }
+
+                console.log("✅ YouTube embed created successfully");
+            }
+        });
+    });
+</script>

@@ -1,0 +1,195 @@
+---
+import { Image } from "astro:assets";
+import logoImage from "../assets/images/HRZ WHEEL.png";
+---
+
+<header class="fixed w-full top-0 z-50">
+    <!-- Header Background -->
+    <div
+        class="absolute inset-0 bg-black/90 backdrop-blur-md border-b border-white/10 z-0"
+    >
+    </div>
+
+    <div
+        class="container mx-auto px-6 py-4 flex justify-between items-center relative z-10"
+    >
+        <a href="/" class="block">
+            <Image
+                src={logoImage}
+                alt="HRZ Wheel Repair - Mobile Wheel Repair Los Angeles & Orange County"
+                title="HRZ Wheel Repair - Professional Mobile Rim Repair Service"
+                class="h-7 w-auto"
+            />
+        </a>
+
+        <nav class="hidden md:flex space-x-8 items-center">
+            <a
+                href="/"
+                class="text-sm font-medium text-gray-300 hover:text-gold-500 transition-colors"
+                >Home</a
+            >
+            <a
+                href="/#about"
+                class="text-sm font-medium text-gray-300 hover:text-gold-500 transition-colors"
+                >About Us</a
+            >
+            <a
+                href="/#offer"
+                class="text-sm font-medium text-gray-300 hover:text-gold-500 transition-colors"
+                >Offer</a
+            >
+            <a
+                href="/#services"
+                class="text-sm font-medium text-gray-300 hover:text-gold-500 transition-colors"
+                >Services</a
+            >
+            <a
+                href="/#testimonials"
+                class="text-sm font-medium text-gray-300 hover:text-gold-500 transition-colors"
+                >Testimonials</a
+            >
+            <a
+                href="/gallery"
+                class="text-sm font-medium text-gray-300 hover:text-gold-500 transition-colors"
+                >Gallery</a
+            >
+            <a
+                href="/blog"
+                class="text-sm font-medium text-gray-300 hover:text-gold-500 transition-colors"
+                >Blog</a
+            >
+            <a
+                href="/quote"
+                class="bg-gold-500 hover:bg-gold-400 text-black px-5 py-2 rounded-full font-bold text-sm transition-all transform hover:scale-105"
+            >
+                Get a Quote
+            </a>
+        </nav>
+
+        <!-- Mobile Menu Button -->
+        <button
+            id="mobile-menu-btn"
+            class="md:hidden text-white focus:outline-none min-w-[48px] min-h-[48px] flex items-center justify-center z-50 relative"
+            aria-label="Toggle navigation menu"
+            aria-expanded="false"
+        >
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-6 h-6"
+            >
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"></path>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Mobile Menu Overlay -->
+    <div
+        id="mobile-menu"
+        class="fixed inset-0 bg-black/95 backdrop-blur-xl z-40 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col justify-center items-center space-y-8 md:hidden"
+    >
+        <!-- Close Button inside Menu -->
+        <button
+            id="mobile-menu-close"
+            class="absolute top-6 right-6 text-white focus:outline-none p-2"
+            aria-label="Close navigation menu"
+        >
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-8 h-8"
+            >
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+
+        <a
+            href="/"
+            class="text-2xl font-medium text-white hover:text-gold-500 transition-colors mobile-link"
+            >Home</a
+        >
+        <a
+            href="/#about"
+            class="text-2xl font-medium text-white hover:text-gold-500 transition-colors mobile-link"
+            >About Us</a
+        >
+        <a
+            href="/#offer"
+            class="text-2xl font-medium text-white hover:text-gold-500 transition-colors mobile-link"
+            >Offer</a
+        >
+        <a
+            href="/#services"
+            class="text-2xl font-medium text-white hover:text-gold-500 transition-colors mobile-link"
+            >Services</a
+        >
+        <a
+            href="/#testimonials"
+            class="text-2xl font-medium text-white hover:text-gold-500 transition-colors mobile-link"
+            >Testimonials</a
+        >
+        <a
+            href="/gallery"
+            class="text-2xl font-medium text-white hover:text-gold-500 transition-colors mobile-link"
+            >Gallery</a
+        >
+        <a
+            href="/blog"
+            class="text-2xl font-medium text-white hover:text-gold-500 transition-colors mobile-link"
+            >Blog</a
+        >
+        <a
+            href="/quote"
+            class="bg-gold-500 hover:bg-gold-400 text-black px-8 py-3 rounded-full font-bold text-xl transition-all transform hover:scale-105 mobile-link"
+        >
+            Get a Quote
+        </a>
+    </div>
+</header>
+
+<script>
+    const mobileMenuBtn = document.getElementById("mobile-menu-btn");
+    const mobileMenuClose = document.getElementById("mobile-menu-close");
+    const mobileMenu = document.getElementById("mobile-menu");
+    const mobileLinks = document.querySelectorAll(".mobile-link");
+
+    function toggleMenu() {
+        if (!mobileMenuBtn || !mobileMenu) return;
+
+        const isExpanded =
+            mobileMenuBtn.getAttribute("aria-expanded") === "true";
+        mobileMenuBtn.setAttribute("aria-expanded", (!isExpanded).toString());
+        mobileMenu.classList.toggle("translate-x-full");
+        document.body.classList.toggle("overflow-hidden");
+    }
+
+    if (mobileMenuBtn) {
+        mobileMenuBtn.addEventListener("click", toggleMenu);
+    }
+
+    if (mobileMenuClose) {
+        mobileMenuClose.addEventListener("click", toggleMenu);
+    }
+
+    mobileLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+            if (mobileMenuBtn && mobileMenu) {
+                mobileMenuBtn.setAttribute("aria-expanded", "false");
+                mobileMenu.classList.add("translate-x-full");
+                document.body.classList.remove("overflow-hidden");
+            }
+        });
+    });
+</script>

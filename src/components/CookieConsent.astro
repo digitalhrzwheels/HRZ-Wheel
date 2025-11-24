@@ -1,0 +1,355 @@
+---
+// src/components/CookieConsent.astro
+---
+
+<div
+    id="cookie-consent-banner"
+    class="fixed bottom-0 left-0 right-0 z-50 hidden transform transition-transform duration-300 translate-y-full"
+>
+    <div
+        class="bg-zinc-900/95 backdrop-blur-md border-t border-white/10 p-4 md:p-6 shadow-2xl"
+    >
+        <div
+            class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4"
+        >
+            <div class="flex-1">
+                <h3 class="text-lg font-semibold text-white mb-2">
+                    We value your privacy
+                </h3>
+                <p class="text-zinc-400 text-sm leading-relaxed">
+                    We use cookies to enhance your browsing experience, serve
+                    personalized ads or content, and analyze our traffic. By
+                    clicking "Accept All", you consent to our use of cookies.
+                </p>
+            </div>
+            <div class="flex flex-wrap gap-3 shrink-0">
+                <button
+                    id="btn-customize"
+                    class="px-4 py-2 text-sm font-medium text-zinc-300 hover:text-white transition-colors border border-zinc-700 rounded-lg hover:bg-zinc-800"
+                >
+                    Customize
+                </button>
+                <button
+                    id="btn-reject-all"
+                    class="px-4 py-2 text-sm font-medium text-zinc-300 hover:text-white transition-colors border border-zinc-700 rounded-lg hover:bg-zinc-800"
+                >
+                    Reject All
+                </button>
+                <button
+                    id="btn-accept-all"
+                    class="px-4 py-2 text-sm font-medium text-black bg-white hover:bg-zinc-200 transition-colors rounded-lg shadow-lg shadow-white/10"
+                >
+                    Accept All
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Preferences Modal -->
+<div
+    id="cookie-preferences-modal"
+    class="fixed inset-0 z-[60] hidden"
+    aria-modal="true"
+    role="dialog"
+>
+    <!-- Backdrop -->
+    <div
+        class="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity opacity-0"
+        id="modal-backdrop"
+    >
+    </div>
+
+    <!-- Modal Content -->
+    <div class="absolute inset-0 flex items-center justify-center p-4">
+        <div
+            class="bg-zinc-900 border border-white/10 rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto transform scale-95 opacity-0 transition-all"
+            id="modal-content"
+        >
+            <div
+                class="p-6 border-b border-white/10 flex justify-between items-center sticky top-0 bg-zinc-900 z-10"
+            >
+                <h2 class="text-xl font-bold text-white">Cookie Preferences</h2>
+                <button
+                    id="btn-close-modal"
+                    class="text-zinc-400 hover:text-white transition-colors"
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-6 w-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="p-6 space-y-6">
+                <p class="text-zinc-400 text-sm">
+                    Manage your cookie preferences here. You can enable or
+                    disable different categories of cookies. strictly necessary
+                    cookies are always enabled.
+                </p>
+
+                <!-- Necessary -->
+                <div
+                    class="flex items-start justify-between gap-4 p-4 rounded-lg bg-zinc-800/50 border border-white/5"
+                >
+                    <div class="flex-1">
+                        <h4 class="text-white font-medium mb-1">
+                            Strictly Necessary
+                        </h4>
+                        <p class="text-zinc-500 text-xs">
+                            Essential for the website to function properly.
+                            Cannot be disabled.
+                        </p>
+                    </div>
+                    <div
+                        class="relative inline-flex items-center cursor-not-allowed opacity-70"
+                    >
+                        <input
+                            type="checkbox"
+                            checked
+                            disabled
+                            class="sr-only peer"
+                        />
+                        <div
+                            class="w-11 h-6 bg-zinc-700 rounded-full peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"
+                        >
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Analytics -->
+                <div
+                    class="flex items-start justify-between gap-4 p-4 rounded-lg bg-zinc-800/50 border border-white/5"
+                >
+                    <div class="flex-1">
+                        <h4 class="text-white font-medium mb-1">Analytics</h4>
+                        <p class="text-zinc-500 text-xs">
+                            Help us understand how visitors interact with the
+                            website.
+                        </p>
+                    </div>
+                    <label
+                        class="relative inline-flex items-center cursor-pointer"
+                    >
+                        <input
+                            type="checkbox"
+                            id="toggle-analytics"
+                            class="sr-only peer"
+                        />
+                        <div
+                            class="w-11 h-6 bg-zinc-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"
+                        >
+                        </div>
+                    </label>
+                </div>
+
+                <!-- Marketing -->
+                <div
+                    class="flex items-start justify-between gap-4 p-4 rounded-lg bg-zinc-800/50 border border-white/5"
+                >
+                    <div class="flex-1">
+                        <h4 class="text-white font-medium mb-1">Marketing</h4>
+                        <p class="text-zinc-500 text-xs">
+                            Used to deliver relevant advertisements and track ad
+                            performance.
+                        </p>
+                    </div>
+                    <label
+                        class="relative inline-flex items-center cursor-pointer"
+                    >
+                        <input
+                            type="checkbox"
+                            id="toggle-marketing"
+                            class="sr-only peer"
+                        />
+                        <div
+                            class="w-11 h-6 bg-zinc-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"
+                        >
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <div
+                class="p-6 border-t border-white/10 bg-zinc-900 sticky bottom-0 z-10 flex justify-end gap-3"
+            >
+                <button
+                    id="btn-save-preferences"
+                    class="px-6 py-2 text-sm font-medium text-black bg-white hover:bg-zinc-200 transition-colors rounded-lg shadow-lg shadow-white/10"
+                >
+                    Save Preferences
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Cookie Consent Logic
+    const STORAGE_KEY = "cookie_preference";
+
+    const banner = document.getElementById("cookie-consent-banner");
+    const modal = document.getElementById("cookie-preferences-modal");
+    const modalBackdrop = document.getElementById("modal-backdrop");
+    const modalContent = document.getElementById("modal-content");
+
+    const btnAcceptAll = document.getElementById("btn-accept-all");
+    const btnRejectAll = document.getElementById("btn-reject-all");
+    const btnCustomize = document.getElementById("btn-customize");
+    const btnCloseModal = document.getElementById("btn-close-modal");
+    const btnSavePreferences = document.getElementById("btn-save-preferences");
+
+    const toggleAnalytics = document.getElementById(
+        "toggle-analytics",
+    ) as HTMLInputElement;
+    const toggleMarketing = document.getElementById(
+        "toggle-marketing",
+    ) as HTMLInputElement;
+
+    function getPreferences() {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        return stored ? JSON.parse(stored) : null;
+    }
+
+    function savePreferences(prefs: any) {
+        localStorage.setItem(
+            STORAGE_KEY,
+            JSON.stringify({
+                ...prefs,
+                timestamp: new Date().toISOString(),
+            }),
+        );
+        applyPreferences(prefs);
+        hideBanner();
+        hideModal();
+    }
+
+    function applyPreferences(prefs: any) {
+        // Helper to activate scripts
+        const activateScripts = (category: string) => {
+            const scripts = document.querySelectorAll(
+                `script[type="text/plain"][data-cookie-category="${category}"]`,
+            );
+            scripts.forEach((oldScript) => {
+                const newScript = document.createElement("script");
+
+                // Copy attributes
+                Array.from(oldScript.attributes).forEach((attr) => {
+                    if (
+                        attr.name !== "type" &&
+                        attr.name !== "data-cookie-category"
+                    ) {
+                        newScript.setAttribute(attr.name, attr.value);
+                    }
+                });
+
+                // Set correct type
+                const originalType =
+                    oldScript.getAttribute("data-original-type");
+                newScript.type = originalType || "text/javascript";
+
+                newScript.innerHTML = oldScript.innerHTML;
+
+                oldScript.parentNode?.replaceChild(newScript, oldScript);
+            });
+        };
+
+        if (prefs.analytics) activateScripts("analytics");
+        if (prefs.marketing) activateScripts("marketing");
+    }
+
+    function showBanner() {
+        if (banner) {
+            banner.classList.remove("hidden");
+            // Small delay for animation
+            setTimeout(() => {
+                banner.classList.remove("translate-y-full");
+            }, 100);
+        }
+    }
+
+    function hideBanner() {
+        if (banner) {
+            banner.classList.add("translate-y-full");
+            setTimeout(() => {
+                banner.classList.add("hidden");
+            }, 300);
+        }
+    }
+
+    function showModal() {
+        if (modal) {
+            modal.classList.remove("hidden");
+            // Load current state into toggles
+            const prefs = getPreferences();
+            if (prefs) {
+                toggleAnalytics.checked = prefs.analytics;
+                toggleMarketing.checked = prefs.marketing;
+            } else {
+                // Default to unchecked if new
+                toggleAnalytics.checked = false;
+                toggleMarketing.checked = false;
+            }
+
+            setTimeout(() => {
+                modalBackdrop?.classList.remove("opacity-0");
+                modalContent?.classList.remove("scale-95", "opacity-0");
+            }, 10);
+        }
+    }
+
+    function hideModal() {
+        if (modal) {
+            modalBackdrop?.classList.add("opacity-0");
+            modalContent?.classList.add("scale-95", "opacity-0");
+            setTimeout(() => {
+                modal.classList.add("hidden");
+            }, 300);
+        }
+    }
+
+    // Event Listeners
+    btnAcceptAll?.addEventListener("click", () => {
+        savePreferences({ necessary: true, analytics: true, marketing: true });
+    });
+
+    btnRejectAll?.addEventListener("click", () => {
+        savePreferences({
+            necessary: true,
+            analytics: false,
+            marketing: false,
+        });
+    });
+
+    btnCustomize?.addEventListener("click", () => {
+        showModal();
+    });
+
+    btnCloseModal?.addEventListener("click", hideModal);
+    modalBackdrop?.addEventListener("click", hideModal);
+
+    btnSavePreferences?.addEventListener("click", () => {
+        savePreferences({
+            necessary: true,
+            analytics: toggleAnalytics.checked,
+            marketing: toggleMarketing.checked,
+        });
+    });
+
+    // Init
+    const prefs = getPreferences();
+    if (!prefs) {
+        showBanner();
+    } else {
+        applyPreferences(prefs);
+    }
+</script>

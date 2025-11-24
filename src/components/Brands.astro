@@ -1,0 +1,138 @@
+---
+import { Image } from "astro:assets";
+import bmw from "../assets/brands/bmw.svg";
+import mercedes from "../assets/brands/Mercedes.svg";
+import audi from "../assets/brands/audi.svg";
+import ferrari from "../assets/brands/ferrari.svg";
+import lamborghini from "../assets/brands/lamborghini.svg";
+import tesla from "../assets/brands/tesla.svg";
+import astonmartin from "../assets/brands/astonmartin.svg";
+import lexus from "../assets/brands/Lexus.svg";
+import volkswagen from "../assets/brands/volkswagen.svg";
+
+const brands = [
+    { name: "BMW", src: bmw },
+    { name: "Mercedes-Benz", src: mercedes },
+    { name: "Audi", src: audi },
+    { name: "Ferrari", src: ferrari },
+    { name: "Lamborghini", src: lamborghini },
+    { name: "Tesla", src: tesla },
+    { name: "Aston Martin", src: astonmartin },
+    { name: "Lexus", src: lexus },
+    { name: "Volkswagen", src: volkswagen },
+];
+---
+
+<section
+    class="py-12 md:py-16 bg-zinc-950 border-y border-white/5 overflow-hidden relative group/section"
+>
+    <div class="container mx-auto px-6 mb-8 text-center">
+        <p class="text-gray-300 text-sm font-medium tracking-[0.2em] uppercase">
+            Trusted with the world's finest machines
+        </p>
+    </div>
+
+    <div class="relative flex overflow-x-hidden group/slider">
+        <div
+            class="animate-marquee whitespace-nowrap flex items-center space-x-12 md:space-x-24 px-8 group-hover/slider:paused"
+        >
+            {
+                brands.map((brand) => (
+                    <div class="flex items-center justify-center opacity-50 hover:opacity-100 transition-opacity duration-300 p-2 md:p-4">
+                        <Image
+                            src={brand.src}
+                            alt={`${brand.name} wheel repair specialist Los Angeles - Professional ${brand.name} rim refinishing service`}
+                            title={`Expert ${brand.name} Wheel Repair in LA & Orange County`}
+                            class={`h-10 md:h-16 w-auto max-w-[80px] md:max-w-[100px] object-contain hover:scale-110 transition-transform duration-300 ${brand.name === "Mercedes-Benz" || brand.name === "Lexus" ? "brightness-0 invert" : ""}`}
+                        />
+                    </div>
+                ))
+            }
+            {/* Duplicate for seamless loop */}
+            {
+                brands.map((brand) => (
+                    <div class="flex items-center justify-center opacity-50 hover:opacity-100 transition-opacity duration-300 p-2 md:p-4">
+                        <Image
+                            src={brand.src}
+                            alt={`${brand.name} wheel repair specialist Los Angeles - Professional ${brand.name} rim refinishing service`}
+                            title={`Expert ${brand.name} Wheel Repair in LA & Orange County`}
+                            class={`h-10 md:h-16 w-auto max-w-[80px] md:max-w-[100px] object-contain hover:scale-110 transition-transform duration-300 ${brand.name === "Mercedes-Benz" || brand.name === "Lexus" ? "brightness-0 invert" : ""}`}
+                        />
+                    </div>
+                ))
+            }
+        </div>
+
+        <div
+            class="absolute top-0 animate-marquee2 whitespace-nowrap flex items-center space-x-12 md:space-x-24 px-8 group-hover/slider:paused"
+        >
+            {
+                brands.map((brand) => (
+                    <div class="flex items-center justify-center opacity-50 hover:opacity-100 transition-opacity duration-300 p-2 md:p-4">
+                        <Image
+                            src={brand.src}
+                            alt={`${brand.name} wheel repair specialist Los Angeles - Professional ${brand.name} rim refinishing service`}
+                            title={`Expert ${brand.name} Wheel Repair in LA & Orange County`}
+                            class={`h-10 md:h-16 w-auto max-w-[80px] md:max-w-[100px] object-contain hover:scale-110 transition-transform duration-300 ${brand.name === "Mercedes-Benz" || brand.name === "Lexus" ? "brightness-0 invert" : ""}`}
+                        />
+                    </div>
+                ))
+            }
+            {/* Duplicate for seamless loop */}
+            {
+                brands.map((brand) => (
+                    <div class="flex items-center justify-center opacity-50 hover:opacity-100 transition-opacity duration-300 p-2 md:p-4">
+                        <Image
+                            src={brand.src}
+                            alt={`${brand.name} wheel repair specialist Los Angeles - Professional ${brand.name} rim refinishing service`}
+                            title={`Expert ${brand.name} Wheel Repair in LA & Orange County`}
+                            class={`h-10 md:h-16 w-auto max-w-[80px] md:max-w-[100px] object-contain hover:scale-110 transition-transform duration-300 ${brand.name === "Mercedes-Benz" || brand.name === "Lexus" ? "brightness-0 invert" : ""}`}
+                        />
+                    </div>
+                ))
+            }
+        </div>
+    </div>
+
+    <!-- Gradient Fade Edges -->
+    <div
+        class="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-zinc-950 to-transparent z-10 pointer-events-none"
+    >
+    </div>
+    <div
+        class="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-zinc-950 to-transparent z-10 pointer-events-none"
+    >
+    </div>
+</section>
+
+<style>
+    .animate-marquee {
+        animation: marquee 80s linear infinite;
+    }
+    .animate-marquee2 {
+        animation: marquee2 80s linear infinite;
+    }
+
+    /* Pause animation when the slider group is hovered */
+    .group\/slider:hover .animate-marquee,
+    .group\/slider:hover .animate-marquee2 {
+        animation-play-state: paused;
+    }
+
+    @keyframes marquee {
+        0% {
+            transform: translateX(0%);
+        }
+        100% {
+            transform: translateX(-100%);
+        }
+    }
+    @keyframes marquee2 {
+        0% {
+            transform: translateX(100%);
+        }
+        100% {
+            transform: translateX(0%);
+        }
+    }
+</style>

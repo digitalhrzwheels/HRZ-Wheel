@@ -1,0 +1,30 @@
+---
+// Pre-renderizar esta página como estática
+export const prerender = true;
+
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Hero from "../components/Hero.astro";
+import Brands from "../components/Brands.astro";
+import AboutUs from "../components/AboutUs.astro";
+import Offer from "../components/Offer_v02.astro";
+import Services from "../components/Services.astro";
+import Testimonials from "../components/Testimonials.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<Layout
+	title="HRZ Wheel Repair | #1 Mobile Wheel Repair Los Angeles & Orange County"
+	description="Expert repair for scratched or scuffed wheels in LA & OC. Curb rash, rim refinishing & bumper spot repair. 8+ years, 5000+ wheels. (626) 863-2885"
+>
+	<Header />
+	<main>
+		<Hero />
+		<Brands />
+		<AboutUs />
+		<Offer />
+		<Services />
+		<Testimonials />
+	</main>
+	<Footer />
+</Layout>

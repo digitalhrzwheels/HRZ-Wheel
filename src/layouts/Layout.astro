@@ -1,0 +1,286 @@
+---
+import "../styles/global.css";
+import CookieConsent from "../components/CookieConsent.astro";
+import { SEO } from "astro-seo";
+
+// Import self-hosted fonts (eliminates 780ms Google Fonts request)
+import "@fontsource/inter/300.css";
+import "@fontsource/inter/400.css";
+import "@fontsource/inter/500.css";
+import "@fontsource/inter/600.css";
+import "@fontsource/outfit/400.css";
+import "@fontsource/outfit/500.css";
+import "@fontsource/outfit/700.css";
+import "@fontsource/outfit/800.css";
+
+interface Props {
+    title: string;
+    description?: string;
+    image?: string;
+}
+
+const {
+    title,
+    description = "Expert mobile wheel repair service in Los Angeles & Orange County. Professional curb rash repair, alloy rim refinishing & bumper spot repair. Same-day service available. Call (626) 863-2885 for a free quote!",
+    image,
+} = Astro.props;
+
+const siteUrl = "https://hrzwheel.com";
+const currentUrl = new URL(Astro.url.pathname, siteUrl).href;
+const ogImageUrl = image || `${siteUrl}/og-image.png`;
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+        <link rel="icon" type="image/png" href="/HRZ%20ICO.png" />
+        <meta name="generator" content={Astro.generator} />
+
+        <!-- Preconnect to Google Analytics for faster loading -->
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+
+        <!-- Google tag (gtag.js) - Deferred loading for better performance -->
+        <script
+            type="text/plain"
+            data-cookie-category="analytics"
+            async
+            src="https://www.googletagmanager.com/gtag/js?id=G-CFXBMQPXLE"
+        ></script>
+        <script type="text/plain" data-cookie-category="analytics">
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag("js", new Date());
+
+            gtag("config", "G-CFXBMQPXLE");
+        </script>
+
+        <SEO
+            title={title}
+            description={description}
+            canonical={currentUrl}
+            openGraph={{
+                basic: {
+                    title: `${title} | Premium Mobile Wheel Repair`,
+                    type: "website",
+                    image: ogImageUrl,
+                    url: currentUrl,
+                },
+                optional: {
+                    description: description,
+                    siteName: "HRZ Wheel Repair",
+                    locale: "en_US",
+                },
+                image: {
+                    url: ogImageUrl,
+                    secureUrl: ogImageUrl,
+                    type: "image/png",
+                    width: 1200,
+                    height: 630,
+                    alt: "HRZ Wheel Repair - Professional Mobile Wheel Repair in Los Angeles & Orange County",
+                },
+            }}
+            twitter={{
+                card: "summary_large_image",
+                site: "@hrzwheel",
+                creator: "@hrzwheel",
+                title: title,
+                description: description,
+                image: ogImageUrl,
+                imageAlt: "HRZ Wheel Repair - Professional Mobile Wheel Repair",
+            }}
+            extend={{
+                meta: [
+                    // Open Graph adicional para Facebook
+                    { property: "og:image", content: ogImageUrl },
+                    { property: "og:image:secure_url", content: ogImageUrl },
+                    { property: "og:image:type", content: "image/png" },
+                    { property: "og:image:width", content: "1200" },
+                    { property: "og:image:height", content: "630" },
+                    {
+                        property: "og:image:alt",
+                        content:
+                            "HRZ Wheel Repair - Professional Mobile Wheel Repair in Los Angeles & Orange County",
+                    },
+
+                    {
+                        name: "keywords",
+                        content:
+                            "wheel repair Los Angeles, wheel repair Orange County, curb rash repair LA, mobile wheel repair, alloy wheel repair, rim repair Los Angeles, Tesla wheel repair, BMW wheel repair, luxury car wheel repair, mobile rim repair Orange County, same day wheel repair, professional wheel refinishing",
+                    },
+                    { name: "author", content: "HRZ Wheel Repair" },
+                    {
+                        name: "robots",
+                        content:
+                            "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+                    },
+                    { name: "googlebot", content: "index, follow" },
+                    { name: "geo.region", content: "US-CA" },
+                    {
+                        name: "geo.placename",
+                        content: "Los Angeles, Orange County",
+                    },
+                    { name: "geo.position", content: "34.0522;-118.2437" },
+                    { name: "ICBM", content: "34.0522, -118.2437" },
+
+                    // Facebook Domain Verification (optional - add your verification code if you have one)
+                    // { name: "facebook-domain-verification", content: "your_verification_code" },
+
+                    // Mobile optimization
+                    { name: "theme-color", content: "#000000" },
+                    { name: "apple-mobile-web-app-capable", content: "yes" },
+                    {
+                        name: "apple-mobile-web-app-status-bar-style",
+                        content: "black-translucent",
+                    },
+
+                    // Business info
+                    {
+                        name: "business:contact_data:locality",
+                        content: "Los Angeles",
+                    },
+                    { name: "business:contact_data:region", content: "CA" },
+                    {
+                        name: "business:contact_data:country_name",
+                        content: "USA",
+                    },
+                    {
+                        name: "business:contact_data:phone_number",
+                        content: "+16268632885",
+                    },
+                ],
+                link: [
+                    {
+                        rel: "icon",
+                        type: "image/png",
+                        href: "/HRZ%20ICO.png",
+                    },
+                    { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
+                ],
+            }}
+        />
+
+        <!-- Schema.org Structured Data for Local Business -->
+        <script
+            type="application/ld+json"
+            set:html={JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "AutoRepair",
+                name: "HRZ Wheel Repair",
+                image: ogImageUrl,
+                description:
+                    "Professional mobile wheel repair service specializing in curb rash repair, alloy wheel refinishing, and bumper spot repair in Los Angeles and Orange County.",
+                url: siteUrl,
+                telephone: "+16268632885",
+                email: "hector@hrzwheel.com",
+                address: {
+                    "@type": "PostalAddress",
+                    addressLocality: "Los Angeles",
+                    addressRegion: "CA",
+                    addressCountry: "US",
+                    areaServed: [
+                        {
+                            "@type": "City",
+                            name: "Los Angeles",
+                        },
+                        {
+                            "@type": "City",
+                            name: "Orange County",
+                        },
+                    ],
+                },
+                geo: {
+                    "@type": "GeoCoordinates",
+                    latitude: "34.0522",
+                    longitude: "-118.2437",
+                },
+                openingHoursSpecification: [
+                    {
+                        "@type": "OpeningHoursSpecification",
+                        dayOfWeek: [
+                            "Monday",
+                            "Tuesday",
+                            "Wednesday",
+                            "Thursday",
+                            "Friday",
+                        ],
+                        opens: "09:00",
+                        closes: "17:00",
+                    },
+                    {
+                        "@type": "OpeningHoursSpecification",
+                        dayOfWeek: "Saturday",
+                        opens: "09:00",
+                        closes: "14:00",
+                    },
+                ],
+                priceRange: "$$",
+                paymentAccepted: "Cash, Credit Card, Debit Card",
+                currenciesAccepted: "USD",
+                aggregateRating: {
+                    "@type": "AggregateRating",
+                    ratingValue: "4.9",
+                    reviewCount: "120",
+                    bestRating: "5",
+                    worstRating: "1",
+                },
+                serviceArea: {
+                    "@type": "GeoCircle",
+                    geoMidpoint: {
+                        "@type": "GeoCoordinates",
+                        latitude: "34.0522",
+                        longitude: "-118.2437",
+                    },
+                    geoRadius: "50000",
+                },
+                hasOfferCatalog: {
+                    "@type": "OfferCatalog",
+                    name: "Wheel Repair Services",
+                    itemListElement: [
+                        {
+                            "@type": "Offer",
+                            itemOffered: {
+                                "@type": "Service",
+                                name: "Curb Rash Repair",
+                                description:
+                                    "Professional curb rash repair service to restore your wheels to factory condition",
+                            },
+                        },
+                        {
+                            "@type": "Offer",
+                            itemOffered: {
+                                "@type": "Service",
+                                name: "Alloy Wheel Refinishing",
+                                description:
+                                    "Complete alloy wheel refinishing and restoration services",
+                            },
+                        },
+                        {
+                            "@type": "Offer",
+                            itemOffered: {
+                                "@type": "Service",
+                                name: "Mobile Wheel Repair",
+                                description:
+                                    "Convenient mobile service - we come to your location in Los Angeles or Orange County",
+                            },
+                        },
+                    ],
+                },
+                sameAs: [
+                    "https://www.yelp.com/biz/hrz-wheel-repair-hacienda-heights-10",
+                    "http://YouTube.com/@HRZwheelofficial",
+                ],
+            })}
+        />
+    </head>
+    <body
+        class="bg-black text-gray-100 overflow-x-hidden selection:bg-gold-500 selection:text-black"
+    >
+        <slot />
+        <CookieConsent />
+    </body>
+</html>
