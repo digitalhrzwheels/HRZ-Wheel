@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import { SEO } from "astro-seo";
+import CookieConsent from "../components/CookieConsent.astro";
 
 // Import self-hosted fonts (eliminates 780ms Google Fonts request)
 import "@fontsource/inter/300.css";
@@ -280,5 +281,6 @@ const ogImageUrl = image || `${siteUrl}/og-image.png`;
         class="bg-black text-gray-100 overflow-x-hidden selection:bg-gold-500 selection:text-black"
     >
         <slot />
+        <CookieConsent />
     </body>
 </html>
