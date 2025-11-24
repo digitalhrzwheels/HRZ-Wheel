@@ -27,7 +27,7 @@ const query = `*[_type == "post" && slug.current == $slug][0]{
   mainImage,
   body,
   "author": author->{name, "slug": slug.current, image},
-  "categories": categories[]->{title}
+  tags
 }`;
 
 const post = await sanityClient.fetch(query, { slug });
@@ -117,10 +117,10 @@ const components = {
 
             <!-- Tags -->
             {
-                post.categories && post.categories.length > 0 && (
+                post.tags && post.tags.length > 0 && (
                     <div class="tags-container">
-                        {post.categories.map((tag: any) => (
-                            <span class="tag">{tag.title}</span>
+                        {post.tags.map((tag: string) => (
+                            <span class="tag">{tag}</span>
                         ))}
                     </div>
                 )
