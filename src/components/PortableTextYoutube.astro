@@ -1,0 +1,19 @@
+---
+import getYouTubeID from "get-youtube-id";
+
+const { node } = Astro.props;
+const { url } = node;
+const id = getYouTubeID(url);
+const embedUrl = `https://www.youtube.com/embed/${id}`;
+---
+
+<div
+    class="video-embed my-8 relative w-full aspect-video rounded-xl overflow-hidden shadow-lg border border-gold-500/20"
+>
+    <iframe
+        src={embedUrl}
+        title="YouTube video player"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+        class="absolute top-0 left-0 w-full h-full"></iframe>
+</div>

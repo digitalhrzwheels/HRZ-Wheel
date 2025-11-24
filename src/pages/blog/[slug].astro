@@ -2,58 +2,55 @@
 import Layout from "../../layouts/Layout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
-import { getHashnodePost } from "../../lib/hashnode";
+import { sanityClient, urlFor } from "../../lib/sanity";
+import { PortableText } from "astro-portabletext";
+import PortableTextImage from "../../components/PortableTextImage.astro";
+import PortableTextYoutube from "../../components/PortableTextYoutube.astro";
 
-// Esta página se renderiza en el servidor (siempre actualizada)
-export const prerender = false;
+export const prerender = true;
 
-const HASHNODE_HOST = "hrzwheel.hashnode.dev";
+export async function getStaticPaths() {
+    const posts = await sanityClient.fetch(
+        `*[_type == "post"]{ "slug": slug.current }`,
+    );
+    return posts.map((post: any) => ({
+        params: { slug: post.slug },
+    }));
+}
 
 const { slug } = Astro.params;
 
-console.log("🔍 [Blog Slug Page] Requested slug:", slug);
+const query = `*[_type == "post" && slug.current == $slug][0]{
+  title,
+  "slug": slug.current,
+  publishedAt,
+  mainImage,
+  body,
+  "author": author->{name, "slug": slug.current, image},
+  "categories": categories[]->{title}
+}`;
 
-if (!slug) {
-    console.log("❌ [Blog Slug Page] No slug provided, redirecting to /blog");
-    return Astro.redirect("/blog", 302);
-}
-
-// Obtener el post directamente de Hashnode (siempre actualizado)
-let post = null;
-try {
-    console.log(
-        "📡 [Blog Slug Page] Fetching post from Hashnode:",
-        HASHNODE_HOST,
-        slug,
-    );
-    post = await getHashnodePost(HASHNODE_HOST, slug);
-    console.log(
-        "✅ [Blog Slug Page] Post fetched:",
-        post ? post.title : "null",
-    );
-} catch (error) {
-    console.error("❌ [Blog Slug Page] Error fetching post:", error);
-}
+const post = await sanityClient.fetch(query, { slug });
 
 if (!post) {
-    console.log("❌ [Blog Slug Page] Post not found, redirecting to /blog");
-    return Astro.redirect("/blog", 302);
+    return Astro.redirect("/404");
 }
 
-console.log("🎉 [Blog Slug Page] Rendering post:", post.title);
-console.log(
-    "📝 [Blog Slug Page] Content HTML preview:",
-    post.content?.html?.substring(0, 500),
-);
+const seoTitle = post.title;
+const seoDescription = "Read our latest article on HRZ Wheels."; // Should fetch excerpt if available
 
-const seoTitle = post.seo?.title || post.title;
-const seoDescription = post.seo?.description || post.brief;
+const components = {
+    type: {
+        image: PortableTextImage,
+        youtube: PortableTextYoutube,
+    },
+};
 ---
 
 <Layout
     title={`${seoTitle} - HRZ Wheels Blog`}
     description={seoDescription}
-    image={post.coverImage?.url}
+    image={post.mainImage ? urlFor(post.mainImage).url() : undefined}
 >
     <Header />
 
@@ -61,10 +58,10 @@ const seoDescription = post.seo?.description || post.brief;
     <section class="hero-section">
         <!-- Cover Image Background -->
         {
-            post.coverImage?.url && (
+            post.mainImage && (
                 <div class="hero-image-container">
                     <img
-                        src={post.coverImage.url}
+                        src={urlFor(post.mainImage).url()}
                         alt={post.title}
                         class="hero-image"
                     />
@@ -99,9 +96,7 @@ const seoDescription = post.seo?.description || post.brief;
                         }
                     </time>
                     <span class="separator">•</span>
-                    <span class="read-time"
-                        >{post.readTimeInMinutes} min read</span
-                    >
+                    <span class="read-time">5 min read</span>
                     {
                         post.author && (
                             <>
@@ -122,10 +117,10 @@ const seoDescription = post.seo?.description || post.brief;
 
             <!-- Tags -->
             {
-                post.tags && post.tags.length > 0 && (
+                post.categories && post.categories.length > 0 && (
                     <div class="tags-container">
-                        {post.tags.map((tag) => (
-                            <span class="tag">{tag.name}</span>
+                        {post.categories.map((tag: any) => (
+                            <span class="tag">{tag.title}</span>
                         ))}
                     </div>
                 )
@@ -138,10 +133,9 @@ const seoDescription = post.seo?.description || post.brief;
         <div class="container mx-auto px-4">
             <div class="content-wrapper">
                 <!-- Content -->
-                <div
-                    class="prose"
-                    set:html={post.content?.html || post.brief}
-                />
+                <div class="prose">
+                    <PortableText value={post.body} components={components} />
+                </div>
 
                 <!-- Footer CTAs -->
                 <div class="article-footer">
@@ -518,9 +512,8 @@ const seoDescription = post.seo?.description || post.brief;
         height: 0;
         margin: 2rem 0;
         border-radius: 16px;
-        overflow: hidden;
-        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
-        border: 2px solid rgba(245, 158, 11, 0.3);
+        margin-bottom: 2rem;
+        padding-left: 2rem;
     }
 
     .prose :global(.oembed iframe),
@@ -798,132 +791,12 @@ const seoDescription = post.seo?.description || post.brief;
             order: -1;
             font-size: 0.95rem;
             padding: 0.625rem 1.25rem;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(20px);
+            background: rgba(0, 0, 0, 0.5);
             border-radius: 50px;
             border: 1px solid rgba(245, 158, 11, 0.3);
-            margin-bottom: 0.5rem;
             display: inline-block;
-            width: fit-content;
-        }
-
-        .post-meta time,
-        .post-meta .read-time {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 0.875rem;
-        }
-
-        .post-meta .separator:last-of-type {
-            display: none;
-        }
-
-        .content-section {
-            padding: 60px 0 80px;
-        }
-
-        .prose {
-            font-size: 1rem;
-        }
-
-        .prose :global(p:first-of-type) {
-            font-size: 1.125rem;
-        }
-
-        .prose :global(h2) {
-            font-size: 1.875rem;
-        }
-
-        .prose :global(h3) {
-            font-size: 1.5rem;
-        }
-
-        .prose :global(h4) {
-            font-size: 1.25rem;
-        }
-
-        .prose :global(iframe) {
-            min-height: unset;
-        }
-
-        .article-footer {
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .back-button,
-        .cta-button {
-            width: 100%;
-            justify-content: center;
-        }
-    }
-
-    @keyframes gradient {
-        0% {
-            background-position: 0% 50%;
-        }
-        50% {
-            background-position: 100% 50%;
-        }
-        100% {
-            background-position: 0% 50%;
+            text-align: center;
+            margin-bottom: 0.5rem;
         }
     }
 </style>
-
-<script>
-    // Convert Hashnode YouTube links to embedded players
-    document.addEventListener("DOMContentLoaded", () => {
-        // Find all links that might be YouTube embeds
-        const embedLinks = document.querySelectorAll(
-            '.prose a[href*="youtube.com"], .prose a[href*="youtu.be"]',
-        );
-
-        console.log(`🔍 Found ${embedLinks.length} potential YouTube links`);
-
-        embedLinks.forEach((link) => {
-            const anchor = link as HTMLAnchorElement;
-            const url = anchor.href;
-            let videoId = null;
-
-            // Extract video ID from different YouTube URL formats
-            if (url.includes("youtube.com/watch")) {
-                const urlParams = new URLSearchParams(new URL(url).search);
-                videoId = urlParams.get("v");
-            } else if (url.includes("youtu.be/")) {
-                videoId = url.split("youtu.be/")[1]?.split("?")[0];
-            }
-
-            if (videoId) {
-                console.log(`📺 Converting YouTube video: ${videoId}`);
-
-                // Create wrapper div with proper aspect ratio
-                const wrapper = document.createElement("div");
-                wrapper.className = "video-embed";
-
-                // Create iframe with standard YouTube embed
-                const iframe = document.createElement("iframe");
-                iframe.src = `https://www.youtube.com/embed/${videoId}`;
-                iframe.title = "YouTube video player";
-                iframe.setAttribute("frameborder", "0");
-                iframe.setAttribute("allowfullscreen", "");
-                iframe.allow =
-                    "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
-
-                wrapper.appendChild(iframe);
-
-                // Replace the link (and its parent wrappers) with the iframe
-                const embedWrapper =
-                    anchor.closest(".embed-wrapper") ||
-                    anchor.closest(".embed-card") ||
-                    anchor.parentElement;
-                if (embedWrapper && embedWrapper !== document.body) {
-                    embedWrapper.replaceWith(wrapper);
-                } else {
-                    anchor.replaceWith(wrapper);
-                }
-
-                console.log("✅ YouTube embed created successfully");
-            }
-        });
-    });
-</script>

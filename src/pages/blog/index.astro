@@ -2,21 +2,34 @@
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
-import { getHashnodePosts } from '../../lib/hashnode';
+import { sanityClient, urlFor } from '../../lib/sanity';
 
-// Esta página se renderiza en el servidor (siempre actualizada)
-export const prerender = false;
+// Static Site Generation (SSG) for best performance
+export const prerender = true;
 
-// Configura tu dominio de Hashnode aquí
-const HASHNODE_HOST = 'hrzwheel.hashnode.dev';
+// Fetch posts from Sanity
+const query = `*[_type == "post"] | order(publishedAt desc) {
+  title,
+  "slug": slug.current,
+  publishedAt,
+  mainImage,
+  "brief": pt::text(body),
+  "tags": categories[]->{title}
+}`;
 
-// Fetch posts cada vez que alguien visita (siempre actualizado)
 let posts = [];
 try {
-    posts = await getHashnodePosts(HASHNODE_HOST, 12) || [];
+    posts = await sanityClient.fetch(query) || [];
 } catch (error) {
     console.error('Error fetching posts:', error);
     posts = [];
+}
+
+// Helper to calculate read time (approximate)
+function getReadTime(text: string) {
+    const wordsPerMinute = 200;
+    const words = text ? text.split(/\s/g).length : 0;
+    return Math.ceil(words / wordsPerMinute);
 }
 ---
 
@@ -96,10 +109,10 @@ try {
                             
                             <!-- Card -->
                             <div class="relative bg-gradient-to-br from-zinc-900 via-zinc-900 to-black rounded-2xl overflow-hidden border border-gold-500/20 group-hover:border-gold-500/50 shadow-2xl transition-all duration-300 transform group-hover:-translate-y-2">
-                                {post.coverImage?.url && (
+                                {post.mainImage && (
                                     <a href={`/blog/${post.slug}`} class="block relative aspect-video overflow-hidden bg-black">
                                         <img 
-                                            src={post.coverImage.url} 
+                                            src={urlFor(post.mainImage).width(800).height(450).url()} 
                                             alt={post.title}
                                             loading="lazy"
                                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
@@ -124,7 +137,7 @@ try {
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                             </svg>
-                                            <span>{post.readTimeInMinutes} min</span>
+                                            <span>5 min</span>
                                         </div>
                                     </div>
                                     
@@ -135,14 +148,14 @@ try {
                                     </h2>
                                     
                                     <p class="text-gray-400 mb-4 line-clamp-3 leading-relaxed">
-                                        {post.brief}
+                                        {post.brief ? (post.brief.length > 200 ? post.brief.substring(0, 200) + "..." : post.brief) : "Read more about this topic in our latest blog post."}
                                     </p>
                                     
                                     {post.tags && post.tags.length > 0 && (
                                         <div class="flex flex-wrap gap-2 mb-4">
                                             {post.tags.slice(0, 3).map((tag: any) => (
                                                 <span class="bg-gold-500/10 text-gold-400 px-3 py-1 rounded-lg text-xs font-semibold border border-gold-500/30 backdrop-blur-sm">
-                                                    {tag.name}
+                                                    {tag.title}
                                                 </span>
                                             ))}
                                         </div>
