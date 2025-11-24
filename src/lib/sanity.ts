@@ -5,7 +5,7 @@ export const sanityClient = createClient({
     projectId: '3tzhjdo3',
     dataset: 'production',
     apiVersion: '2024-03-01',
-    useCdn: true, // true for SSG (faster build), false for fresh data
+    useCdn: false, // false to ensure webhook updates are reflected immediately
 });
 
 const builder = imageUrlBuilder(sanityClient);

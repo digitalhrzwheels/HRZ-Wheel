@@ -1,6 +1,5 @@
 ---
 import "../styles/global.css";
-import CookieConsent from "../components/CookieConsent.astro";
 import { SEO } from "astro-seo";
 
 // Import self-hosted fonts (eliminates 780ms Google Fonts request)
@@ -16,7 +15,7 @@ import "@fontsource/outfit/800.css";
 interface Props {
     title: string;
     description?: string;
-    image?: string;
+    image?: string; // Optional custom OG image (e.g., for blog posts)
 }
 
 const {
@@ -27,6 +26,7 @@ const {
 
 const siteUrl = "https://hrzwheel.com";
 const currentUrl = new URL(Astro.url.pathname, siteUrl).href;
+// Use custom image if provided, otherwise use default
 const ogImageUrl = image || `${siteUrl}/og-image.png`;
 ---
 
@@ -35,7 +35,7 @@ const ogImageUrl = image || `${siteUrl}/og-image.png`;
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width" />
-        <link rel="icon" type="image/png" href="/HRZ%20ICO.png" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <meta name="generator" content={Astro.generator} />
 
         <!-- Preconnect to Google Analytics for faster loading -->
@@ -44,12 +44,11 @@ const ogImageUrl = image || `${siteUrl}/og-image.png`;
 
         <!-- Google tag (gtag.js) - Deferred loading for better performance -->
         <script
-            type="text/plain"
-            data-cookie-category="analytics"
+            type="text/partytown"
             async
             src="https://www.googletagmanager.com/gtag/js?id=G-CFXBMQPXLE"
         ></script>
-        <script type="text/plain" data-cookie-category="analytics">
+        <script type="text/partytown">
             window.dataLayer = window.dataLayer || [];
             function gtag() {
                 dataLayer.push(arguments);
@@ -156,8 +155,8 @@ const ogImageUrl = image || `${siteUrl}/og-image.png`;
                 link: [
                     {
                         rel: "icon",
-                        type: "image/png",
-                        href: "/HRZ%20ICO.png",
+                        type: "image/svg+xml",
+                        href: "/favicon.svg",
                     },
                     { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
                 ],
@@ -281,6 +280,5 @@ const ogImageUrl = image || `${siteUrl}/og-image.png`;
         class="bg-black text-gray-100 overflow-x-hidden selection:bg-gold-500 selection:text-black"
     >
         <slot />
-        <CookieConsent />
     </body>
 </html>
