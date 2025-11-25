@@ -33,8 +33,8 @@ export async function POST(context) {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                from: 'HRZ Wheels <onboarding@resend.dev>', // Email de prueba (sin dominio)
-                to: ['digital.hrzwheels@gmail.com'], // Solo tu email hasta verificar dominio
+                from: 'HRZ Wheels <contact@hrzwheelrepair.com>', // Email autenticado
+                to: ['hector@hrzwheel.com'], // Email de destino
                 reply_to: email,
                 subject: `✨ New Quote Request from ${name} - ${service}`,
                 html: generateEmailHTML({ name, phone, email, service, carModel, year, address, description }),
