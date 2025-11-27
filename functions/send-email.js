@@ -2,7 +2,40 @@
 export async function onRequestPost(context) {
     try {
         const data = await context.request.json();
-        const { name, phone, email, service, carModel, year, address, description } = data;
+        const { name, phone, email, service, carModel, year, address, description, recaptchaToken } = data;
+
+        // Validación de reCAPTCHA v3
+        if (!recaptchaToken) {
+            return new Response(
+                JSON.stringify({ message: 'reCAPTCHA token missing' }),
+                { status: 400, headers: { 'Content-Type': 'application/json' } }
+            );
+        }
+
+        // Verificar reCAPTCHA con Google
+        const recaptchaResponse = await fetch('https://www.google.com/recaptcha/api/siteverify', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `secret=${context.env.RECAPTCHA_SECRET_KEY}&response=${recaptchaToken}`,
+        });
+
+        const recaptchaResult = await recaptchaResponse.json();
+
+        // Verificar que la puntuación sea suficiente (v3 devuelve un score de 0.0 a 1.0)
+        if (!recaptchaResult.success || recaptchaResult.score < 0.5) {
+            console.error('reCAPTCHA verification failed:', recaptchaResult);
+            return new Response(
+                JSON.stringify({
+                    message: 'reCAPTCHA verification failed. Please try again.',
+                    score: recaptchaResult.score
+                }),
+                { status: 403, headers: { 'Content-Type': 'application/json' } }
+            );
+        }
+
+        console.log('reCAPTCHA verification successful. Score:', recaptchaResult.score);
 
         // Validación básica
         if (!name || !phone || !email) {
