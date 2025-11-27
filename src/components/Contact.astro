@@ -2,7 +2,8 @@
 // Contact.astro
 ---
 
-<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer
+></script>
 
 ---
 
@@ -331,7 +332,14 @@
                     </div>
 
                     <!-- Cloudflare Turnstile -->
-                    <div class="cf-turnstile" data-sitekey="0x4AAAAAACDLqBgqHecTvtM_" data-theme="dark"></div>
+                    <div class="flex justify-center">
+                        <div
+                            class="cf-turnstile"
+                            data-sitekey="0x4AAAAAACDLqBgqHecTvtM_"
+                            data-theme="dark"
+                        >
+                        </div>
+                    </div>
 
                     <!-- Submit Button -->
                     <button
@@ -403,6 +411,23 @@
     .dropdown-menu::-webkit-scrollbar-thumb {
         background: #eab308;
         border-radius: 10px;
+    }
+
+    /* Turnstile responsive styling */
+    .cf-turnstile {
+        transform-origin: center;
+    }
+
+    @media (max-width: 640px) {
+        .cf-turnstile {
+            transform: scale(0.85);
+        }
+    }
+
+    @media (max-width: 400px) {
+        .cf-turnstile {
+            transform: scale(0.75);
+        }
     }
 </style>
 
@@ -531,9 +556,19 @@
 
         // Custom validation for photos
         if (selectedFiles.length === 0) {
-            statusDiv.textContent = 'Please upload at least one photo of the damage.';
-            statusDiv.classList.remove("hidden", "bg-green-500/20", "text-green-400");
-            statusDiv.classList.add("bg-red-500/20", "text-red-400", "border", "border-red-500/30");
+            statusDiv.textContent =
+                "Please upload at least one photo of the damage.";
+            statusDiv.classList.remove(
+                "hidden",
+                "bg-green-500/20",
+                "text-green-400",
+            );
+            statusDiv.classList.add(
+                "bg-red-500/20",
+                "text-red-400",
+                "border",
+                "border-red-500/30",
+            );
             return;
         }
 
@@ -545,9 +580,18 @@
         // Get Turnstile token
         const turnstileToken = turnstile.getResponse();
         if (!turnstileToken) {
-            statusDiv.textContent = 'Please complete the security check.';
-            statusDiv.classList.remove("hidden", "bg-green-500/20", "text-green-400");
-            statusDiv.classList.add("bg-red-500/20", "text-red-400", "border", "border-red-500/30");
+            statusDiv.textContent = "Please complete the security check.";
+            statusDiv.classList.remove(
+                "hidden",
+                "bg-green-500/20",
+                "text-green-400",
+            );
+            statusDiv.classList.add(
+                "bg-red-500/20",
+                "text-red-400",
+                "border",
+                "border-red-500/30",
+            );
             submitBtn.disabled = false;
             submitBtn.innerText = originalBtnText;
             return;
