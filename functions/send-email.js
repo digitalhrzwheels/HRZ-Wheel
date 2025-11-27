@@ -1,106 +1,63 @@
-// Cloudflare Workers function for sending emails with Resend
-export async function onRequestPost(context) {
-    try {
-        const data = await context.request.json();
-        const { name, phone, email, service, carModel, year, address, description, recaptchaToken } = data;
-
-        // Validación de reCAPTCHA v3
-        if (!recaptchaToken) {
-            return new Response(
-                JSON.stringify({ message: 'reCAPTCHA token missing' }),
-                { status: 400, headers: { 'Content-Type': 'application/json' } }
+{ status: 400, headers: { 'Content-Type': 'application/json' } }
             );
         }
 
-        // Verificar reCAPTCHA con Google
-        const recaptchaResponse = await fetch('https://www.google.com/recaptcha/api/siteverify', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: `secret=${context.env.RECAPTCHA_SECRET_KEY}&response=${recaptchaToken}`,
-        });
+// Validación de API Key de Resend
+if (!context.env.RESEND_API_KEY) {
+    console.error('Missing RESEND_API_KEY environment variable');
+    return new Response(
+        JSON.stringify({ message: 'Server configuration error: Missing email API key' }),
+        { status: 500, headers: { 'Content-Type': 'application/json' } }
+    );
+}
 
-        const recaptchaResult = await recaptchaResponse.json();
+// Enviar email usando Resend API (gratis 100 emails/día)
+const emailResponse = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: {
+        'Authorization': `Bearer ${context.env.RESEND_API_KEY}`,
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+        from: 'HRZ Wheels <contact@hrzwheelrepair.com>', // Email autenticado
+        to: ['hector@hrzwheel.com'], // Email de destino
+        reply_to: email,
+        subject: `✨ New Quote Request from ${name} - ${service}`,
+        html: generateEmailHTML({ name, phone, email, service, carModel, year, address, description }),
+        attachments: data.attachments || []
+    })
+});
 
-        // Verificar que la puntuación sea suficiente (v3 devuelve un score de 0.0 a 1.0)
-        if (!recaptchaResult.success || recaptchaResult.score < 0.5) {
-            console.error('reCAPTCHA verification failed:', recaptchaResult);
-            return new Response(
-                JSON.stringify({
-                    message: 'reCAPTCHA verification failed. Please try again.',
-                    score: recaptchaResult.score
-                }),
-                { status: 403, headers: { 'Content-Type': 'application/json' } }
-            );
-        }
+const responseData = await emailResponse.json();
 
-        console.log('reCAPTCHA verification successful. Score:', recaptchaResult.score);
+if (!emailResponse.ok) {
+    console.error('Resend API error:', JSON.stringify(responseData, null, 2));
+    console.error('Response status:', emailResponse.status);
+    console.error('Response headers:', Object.fromEntries(emailResponse.headers.entries()));
 
-        // Validación básica
-        if (!name || !phone || !email) {
-            return new Response(
-                JSON.stringify({ message: 'Missing required fields' }),
-                { status: 400, headers: { 'Content-Type': 'application/json' } }
-            );
-        }
+    return new Response(
+        JSON.stringify({
+            message: 'Email API error',
+            error: responseData.message || emailResponse.statusText,
+            details: responseData
+        }),
+        { status: 500, headers: { 'Content-Type': 'application/json' } }
+    );
+}
 
-        // Validación de API Key de Resend
-        if (!context.env.RESEND_API_KEY) {
-            console.error('Missing RESEND_API_KEY environment variable');
-            return new Response(
-                JSON.stringify({ message: 'Server configuration error: Missing email API key' }),
-                { status: 500, headers: { 'Content-Type': 'application/json' } }
-            );
-        }
-
-        // Enviar email usando Resend API (gratis 100 emails/día)
-        const emailResponse = await fetch('https://api.resend.com/emails', {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${context.env.RESEND_API_KEY}`,
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                from: 'HRZ Wheels <contact@hrzwheelrepair.com>', // Email autenticado
-                to: ['hector@hrzwheel.com'], // Email de destino
-                reply_to: email,
-                subject: `✨ New Quote Request from ${name} - ${service}`,
-                html: generateEmailHTML({ name, phone, email, service, carModel, year, address, description }),
-                attachments: data.attachments || []
-            })
-        });
-
-        const responseData = await emailResponse.json();
-
-        if (!emailResponse.ok) {
-            console.error('Resend API error:', JSON.stringify(responseData, null, 2));
-            console.error('Response status:', emailResponse.status);
-            console.error('Response headers:', Object.fromEntries(emailResponse.headers.entries()));
-
-            return new Response(
-                JSON.stringify({
-                    message: 'Email API error',
-                    error: responseData.message || emailResponse.statusText,
-                    details: responseData
-                }),
-                { status: 500, headers: { 'Content-Type': 'application/json' } }
-            );
-        }
-
-        console.log('Email sent successfully:', responseData);
-        return new Response(
-            JSON.stringify({ message: 'Email sent successfully', id: responseData.id }),
-            { status: 200, headers: { 'Content-Type': 'application/json' } }
-        );
+console.log('Email sent successfully:', responseData);
+return new Response(
+    JSON.stringify({ message: 'Email sent successfully', id: responseData.id }),
+    { status: 200, headers: { 'Content-Type': 'application/json' } }
+);
 
     } catch (error) {
-        console.error('Error sending email:', error);
-        return new Response(
-            JSON.stringify({ message: 'Failed to send email', error: error.message }),
-            { status: 500, headers: { 'Content-Type': 'application/json' } }
-        );
-    }
+    console.error('Error sending email:', error);
+    return new Response(
+        JSON.stringify({ message: 'Failed to send email', error: error.message }),
+        { status: 500, headers: { 'Content-Type': 'application/json' } }
+    );
+}
 }
 
 function generateEmailHTML({ name, phone, email, service, carModel, year, address, description }) {

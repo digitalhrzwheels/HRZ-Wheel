@@ -289,7 +289,6 @@
                                 name="photos"
                                 multiple
                                 accept="image/*"
-                                required
                                 class="hidden"
                             />
                             <label
@@ -526,6 +525,14 @@
 
         const submitBtn = form.querySelector('button[type="submit"]');
         const originalBtnText = submitBtn.innerText;
+
+        // Custom validation for photos
+        if (selectedFiles.length === 0) {
+            statusDiv.textContent = 'Please upload at least one photo of the damage.';
+            statusDiv.classList.remove("hidden", "bg-green-500/20", "text-green-400");
+            statusDiv.classList.add("bg-red-500/20", "text-red-400", "border", "border-red-500/30");
+            return;
+        }
 
         // Loading state
         submitBtn.disabled = true;
