@@ -2,7 +2,7 @@
 // Contact.astro
 ---
 
-<script src="https://www.google.com/recaptcha/api.js?render=6LeYgRksAAAAAHErCOzcR0Ydr_ZUx_8pny0KTQVQ"></script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
 ---
 
@@ -330,6 +330,9 @@
                         </p>
                     </div>
 
+                    <!-- Cloudflare Turnstile -->
+                    <div class="cf-turnstile" data-sitekey="0x4AAAAAACDLqBgqHecTvtM_" data-theme="dark"></div>
+
                     <!-- Submit Button -->
                     <button
                         type="submit"
@@ -539,13 +542,10 @@
         submitBtn.innerText = "SENDING...";
         statusDiv.classList.add("hidden");
 
-        // Get reCAPTCHA token
-        let recaptchaToken;
-        try {
-            recaptchaToken = await grecaptcha.execute('6LeYgRksAAAAAHErCOzcR0Ydr_ZUx_8pny0KTQVQ', { action: 'submit' });
-        } catch (error) {
-            console.error('reCAPTCHA error:', error);
-            statusDiv.textContent = 'Security verification failed. Please try again.';
+        // Get Turnstile token
+        const turnstileToken = turnstile.getResponse();
+        if (!turnstileToken) {
+            statusDiv.textContent = 'Please complete the security check.';
             statusDiv.classList.remove("hidden", "bg-green-500/20", "text-green-400");
             statusDiv.classList.add("bg-red-500/20", "text-red-400", "border", "border-red-500/30");
             submitBtn.disabled = false;
@@ -584,7 +584,7 @@
             return;
         }
 
-        const json = JSON.stringify({ ...object, attachments, recaptchaToken });
+        const json = JSON.stringify({ ...object, attachments, turnstileToken });
 
         try {
             // Enviar a nuestra función de Cloudflare Workers
