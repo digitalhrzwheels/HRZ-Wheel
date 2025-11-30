@@ -164,7 +164,12 @@ function generateEmailHTML({ name, phone, email, service, carModel, year, addres
                                 <tr>
                                     <td style="padding: 18px 24px; background: linear-gradient(135deg, #f3f4f6 0%, #ffffff 100%); border: 2px solid #d1d5db; border-radius: 12px;">
                                         <p style="margin: 0; color: #374151; font-size: 11px; font-weight: 700; text-transform: uppercase;">Service Address</p>
-                                        <p style="margin: 6px 0 0 0; color: #1f2937; font-size: 18px; font-weight: 700;">📍 ${address}</p>
+                                        <p style="margin: 6px 0 0 0; color: #1f2937; font-size: 18px; font-weight: 700;">
+                                            <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}" target="_blank" style="color: #1f2937; text-decoration: none;">📍 ${address}</a>
+                                        </p>
+                                        <p style="margin: 8px 0 0 0; color: #6b7280; font-size: 12px;">
+                                            <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}" target="_blank" style="color: #3b82f6; text-decoration: underline;">🗺️ Open in Google Maps</a>
+                                        </p>
                                     </td>
                                 </tr>
                                 ` : ''}
