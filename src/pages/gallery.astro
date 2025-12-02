@@ -7,33 +7,143 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { Image } from "astro:assets";
 
-// Import gallery images
-import img1 from "../assets/images/Gallery/20160913_141132.webp";
-import img2 from "../assets/images/Gallery/30AB94D0-13DD-4DE1-8EBA-2B48F78A2F6E.webp";
-import img3 from "../assets/images/Gallery/796184D7-58BC-4738-8202-B25FC1B2D106.webp";
-import img4 from "../assets/images/Gallery/B14631CC-D4AB-4FDD-BDF0-8BB062B1EDB2.webp";
-import img5 from "../assets/images/Gallery/Ford Fusion befor and after.webp";
-import img6 from "../assets/images/Gallery/IMG_6259.webp";
-import img7 from "../assets/images/Gallery/IMG_6563-2.webp";
-import img8 from "../assets/images/Gallery/Sequence 010.jpg";
-import img9 from "../assets/images/Gallery/Yelp_HRZ-Aaron-mercedes-S63.webp";
+// Import Alloy Wheel Repair Gallery Images
+// Audi Wheel
+import audiWheel1 from "../assets/HRZ Repair Gallery/Audi Wheel/30AB94D0-13DD-4DE1-8EBA-2B48F78A2F6E.jpg";
+import audiWheel2 from "../assets/HRZ Repair Gallery/Audi Wheel/796184D7-58BC-4738-8202-B25FC1B2D106.jpg";
+import audiWheel3 from "../assets/HRZ Repair Gallery/Audi Wheel/97D1473E-0B4D-4FA2-B9B4-D9603F8F81A5.jpg";
 
-const galleryImages = [
-    { src: img1, alt: "Professional alloy wheel repair before and after transformation Los Angeles", title: "Alloy Wheel Repair Before & After" },
-    { src: img2, alt: "Luxury vehicle curb rash repair and rim refinishing Orange County", title: "Premium Curb Rash Repair" },
-    { src: img3, alt: "Mobile wheel repair service curb damage restoration Los Angeles", title: "Mobile Curb Damage Repair" },
-    { src: img4, alt: "Damaged alloy wheel restoration and polishing service", title: "Alloy Wheel Restoration" },
-    { src: img5, alt: "Ford Fusion wheel repair before and after curb rash fix", title: "Ford Fusion Wheel Repair" },
-    { src: img6, alt: "Premium rim restoration and refinishing mobile service LA", title: "Premium Rim Refinishing" },
-    { src: img7, alt: "Professional wheel repair work showcase Los Angeles Orange County", title: "Professional Wheel Repair Showcase" },
-    { src: img8, alt: "Mobile wheel repair service transformation before after photos", title: "Mobile Wheel Repair Transformation" },
-    { src: img9, alt: "Mercedes S63 AMG wheel repair customer review Yelp testimonial", title: "Mercedes S63 Wheel Repair - Customer Review" },
-];
+// Before and After Wheels
+import beforeAfter1 from "../assets/HRZ Repair Gallery/Before and After Wheels/Ford Fusion befor and after.jpg";
+import beforeAfter2 from "../assets/HRZ Repair Gallery/Before and After Wheels/Yelp_HRZ-Aaron-mercedes-S63.jpg";
+
+// Honda Wheel
+import hondaWheel1 from "../assets/HRZ Repair Gallery/Honda Wheel/IMG_5638 2.jpg";
+import hondaWheel2 from "../assets/HRZ Repair Gallery/Honda Wheel/IMG_6563 2.jpg";
+
+// Subaru Wheel (Gold)
+import subaruWheel1 from "../assets/HRZ Repair Gallery/Subaru Wheel (Gold)/IMG_3632.jpg";
+import subaruWheel2 from "../assets/HRZ Repair Gallery/Subaru Wheel (Gold)/IMG_6259.jpg";
+
+// Tesla wheel (Silver)
+import teslaWheel1 from "../assets/HRZ Repair Gallery/Tesla wheel (Silver)  /20160913_131255.jpg";
+import teslaWheel2 from "../assets/HRZ Repair Gallery/Tesla wheel (Silver)  /20160913_131303.jpg";
+import teslaWheel3 from "../assets/HRZ Repair Gallery/Tesla wheel (Silver)  /20160913_141107.jpg";
+import teslaWheel4 from "../assets/HRZ Repair Gallery/Tesla wheel (Silver)  /20160913_141118.jpg";
+import teslaWheel5 from "../assets/HRZ Repair Gallery/Tesla wheel (Silver)  /20160913_141132.jpg";
+
+// Bumper Repair
+import bumper1 from "../assets/HRZ Repair Gallery/Bumper Repair/IMG_8003.jpg";
+import bumper2 from "../assets/HRZ Repair Gallery/Bumper Repair/IMG_8004.jpg";
+import bumper3 from "../assets/HRZ Repair Gallery/Bumper Repair/IMG_8006.jpg";
+import bumper4 from "../assets/HRZ Repair Gallery/Bumper Repair/IMG_8007.jpg";
+import bumper5 from "../assets/HRZ Repair Gallery/Bumper Repair/IMG_8011.jpg";
+import bumper6 from "../assets/HRZ Repair Gallery/Bumper Repair/IMG_8013.jpg";
+import bumper7 from "../assets/HRZ Repair Gallery/Bumper Repair/IMG_8014.jpg";
+import bumper8 from "../assets/HRZ Repair Gallery/Bumper Repair/IMG_8017.jpg";
+import bumper9 from "../assets/HRZ Repair Gallery/Bumper Repair/IMG_8021.jpg";
+import bumper10 from "../assets/HRZ Repair Gallery/Bumper Repair/IMG_8023.jpg";
+import bumper11 from "../assets/HRZ Repair Gallery/Bumper Repair/IMG_8029.jpg";
+import bumper12 from "../assets/HRZ Repair Gallery/Bumper Repair/IMG_8030.jpg";
+import bumper13 from "../assets/HRZ Repair Gallery/Bumper Repair/IMG_8032.jpg";
+import bumper14 from "../assets/HRZ Repair Gallery/Bumper Repair/IMG_8034.jpg";
+
+// Video paths (as strings since they're not processed by Astro)
+const hondaVideo = "/src/assets/HRZ Repair Gallery/Honda Wheel/IMG_6564 2.mp4";
+const subaruVideo = "/src/assets/HRZ Repair Gallery/Subaru Wheel (Gold)/IMG_9856.mp4";
+const bumperVideo = "/src/assets/HRZ Repair Gallery/Bumper Repair/IMG_8026.mp4";
+
+// Type definitions for gallery items
+type GalleryImageItem = {
+    src: ImageMetadata;
+    alt: string;
+    type: "image";
+};
+
+type GalleryVideoItem = {
+    src: string;
+    alt: string;
+    type: "video";
+};
+
+type GalleryItem = GalleryImageItem | GalleryVideoItem;
+
+// Gallery data structure
+const alloyWheelRepair = {
+    title: "Alloy Wheel Repair",
+    id: "alloy-wheel-repair",
+    subsections: [
+        {
+            name: "Audi Wheel Repair",
+            items: [
+                { src: audiWheel1, alt: "Audi alloy wheel curb rash repair before and after", type: "image" as const },
+                { src: audiWheel2, alt: "Audi wheel restoration professional service Los Angeles", type: "image" as const },
+                { src: audiWheel3, alt: "Audi rim refinishing mobile service Orange County", type: "image" as const },
+            ] as GalleryItem[]
+        },
+        {
+            name: "Before & After Transformations",
+            items: [
+                { src: beforeAfter1, alt: "Ford Fusion wheel repair before and after transformation", type: "image" as const },
+                { src: beforeAfter2, alt: "Mercedes S63 AMG wheel repair customer testimonial", type: "image" as const },
+            ] as GalleryItem[]
+        },
+        {
+            name: "Honda Wheel Repair",
+            items: [
+                { src: hondaWheel1, alt: "Honda alloy wheel curb damage repair service", type: "image" as const },
+                { src: hondaWheel2, alt: "Honda rim restoration mobile service LA", type: "image" as const },
+                { src: hondaVideo, alt: "Honda wheel repair process video demonstration", type: "video" as const },
+            ] as GalleryItem[]
+        },
+        {
+            name: "Subaru Wheel Repair (Gold Finish)",
+            items: [
+                { src: subaruWheel1, alt: "Subaru gold alloy wheel repair and refinishing", type: "image" as const },
+                { src: subaruWheel2, alt: "Subaru wheel restoration gold finish service", type: "image" as const },
+                { src: subaruVideo, alt: "Subaru wheel repair video showcase", type: "video" as const },
+            ] as GalleryItem[]
+        },
+        {
+            name: "Tesla Wheel Repair (Silver Finish)",
+            items: [
+                { src: teslaWheel1, alt: "Tesla alloy wheel curb rash repair silver finish", type: "image" as const },
+                { src: teslaWheel2, alt: "Tesla rim restoration mobile service Los Angeles", type: "image" as const },
+                { src: teslaWheel3, alt: "Tesla wheel refinishing professional service", type: "image" as const },
+                { src: teslaWheel4, alt: "Tesla alloy wheel repair before and after", type: "image" as const },
+                { src: teslaWheel5, alt: "Tesla wheel damage restoration service OC", type: "image" as const },
+            ] as GalleryItem[]
+        },
+    ]
+};
+
+const bumperRepair = {
+    title: "Bumper Spot Repair",
+    id: "bumper-repair",
+    items: [
+        { src: bumper1, alt: "Professional bumper spot repair service Los Angeles", type: "image" as const },
+        { src: bumper2, alt: "Bumper scratch repair and refinishing Orange County", type: "image" as const },
+        { src: bumper3, alt: "Mobile bumper repair service before and after", type: "image" as const },
+        { src: bumper4, alt: "Bumper scuff repair professional service LA", type: "image" as const },
+        { src: bumper5, alt: "Bumper damage restoration mobile service", type: "image" as const },
+        { src: bumper6, alt: "Bumper paint repair and color matching service", type: "image" as const },
+        { src: bumper7, alt: "Professional bumper refinishing service OC", type: "image" as const },
+        { src: bumper8, alt: "Bumper repair transformation before after photos", type: "image" as const },
+        { src: bumper9, alt: "Mobile bumper spot repair service Los Angeles", type: "image" as const },
+        { src: bumper10, alt: "Bumper scratch removal professional service", type: "image" as const },
+        { src: bumper11, alt: "Bumper repair service Orange County mobile", type: "image" as const },
+        { src: bumper12, alt: "Professional bumper restoration service LA", type: "image" as const },
+        { src: bumper13, alt: "Bumper damage repair mobile service Orange County", type: "image" as const },
+        { src: bumper14, alt: "Bumper spot repair before and after results", type: "image" as const },
+        { src: bumperVideo, alt: "Bumper repair process video demonstration", type: "video" as const },
+    ] as GalleryItem[]
+};
+
 ---
 
 <Layout
-    title="Gallery - Before & After Photos | HRZ Wheel Repair Los Angeles & Orange County"
-    description="Browse our professional wheel repair gallery. See real before & after photos of curb rash repair, rim refinishing & alloy wheel restoration. Mobile service in LA & OC. 5000+ wheels restored."
+    title="Gallery - Professional Wheel & Bumper Repair | HRZ Wheel Repair Los Angeles & Orange County"
+    description="Browse our professional wheel and bumper repair gallery. Real before & after photos of alloy wheel repair, curb rash repair, rim refinishing & bumper spot repair. Mobile service in LA & OC. 5000+ wheels restored."
 >
     <Header />
     
@@ -58,46 +168,233 @@ const galleryImages = [
                         Our Work
                     </span>
                 </h1>
-                <p class="text-gray-300 text-xl md:text-2xl leading-relaxed">
-                    Explore our portfolio of professional wheel repair transformations. 
-                    Real before & after photos showcasing curb rash repair, rim refinishing, and alloy wheel restoration.
+                <p class="text-gray-300 text-base md:text-lg leading-relaxed">
+                    Explore our portfolio of professional wheel and bumper repair transformations. 
+                    Real before & after photos showcasing curb rash repair, rim refinishing, alloy wheel restoration, and bumper spot repair.
                     Over 5,000 wheels restored to perfection in Los Angeles & Orange County.
                 </p>
             </div>
         </section>
 
-        <!-- Gallery Grid -->
-        <section class="container mx-auto px-6 relative z-10">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {galleryImages.map((image, index) => (
+        <!-- Alloy Wheel Repair Section -->
+        <section id="alloy-wheel-repair" class="container mx-auto px-6 mb-20 relative z-10 scroll-mt-24">
+            <div class="text-center mb-12">
+                <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold mb-4">
+                    <span class="bg-gradient-to-r from-red-500 to-red-300 bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(255,255,255,0.5)]">
+                        Alloy Wheel Repair
+                    </span>
+                </h2>
+                <p class="text-gray-400 text-sm md:text-base max-w-3xl mx-auto">
+                    Professional curb rash repair, rim refinishing, and alloy wheel restoration for all makes and models
+                </p>
+            </div>
+
+            {alloyWheelRepair.subsections.map((subsection) => (
+                <div class="mb-12">
+                    <h3 class="text-xl md:text-2xl font-bold text-white mb-4 flex items-center gap-3">
+                        <span class="w-2 h-2 bg-red-500 rounded-full shadow-[0_0_10px_rgba(255,255,255,0.6)]"></span>
+                        {subsection.name}
+                    </h3>
+                    
+                    <!-- Desktop Grid -->
+                    <div class="hidden md:grid md:grid-cols-3 lg:grid-cols-4 gap-4">
+                        {subsection.items.map((item, index) => (
+                            <div 
+                                class="gallery-item group relative overflow-hidden rounded-xl bg-zinc-900 border border-white/10 hover:border-red-500/50 transition-all duration-300 cursor-pointer aspect-square"
+                                data-src={item.type === 'image' ? (item.src as ImageMetadata).src : item.src}
+                                data-alt={item.alt}
+                                data-type={item.type}
+                            >
+                                {item.type === 'image' ? (
+                                    <Image
+                                        src={item.src as ImageMetadata}
+                                        alt={item.alt}
+                                        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                        loading="lazy"
+                                    />
+                                ) : (
+                                    <div class="relative w-full h-full bg-zinc-950 flex items-center justify-center">
+                                        <video
+                                            src={item.src as string}
+                                            class="w-full h-full object-cover"
+                                            muted
+                                            loop
+                                            playsinline
+                                        />
+                                        <div class="absolute inset-0 flex items-center justify-center bg-black/30">
+                                            <div class="w-16 h-16 rounded-full bg-red-500/90 flex items-center justify-center shadow-[0_0_20px_rgba(255,255,255,0.8)]">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" class="w-8 h-8 text-black ml-1">
+                                                    <path d="M8 5v14l11-7z"/>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
+                                <!-- Overlay -->
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                                    <div class="text-white">
+                                        <p class="text-sm font-medium text-red-400 mb-1">Click to view</p>
+                                        <p class="text-xs text-gray-300">{item.alt}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                    <!-- Mobile Slider -->
+                    <div class="md:hidden relative">
+                        <!-- Scroll Indicator -->
+                        <div class="absolute top-1/2 right-2 -translate-y-1/2 z-10 bg-black/50 backdrop-blur-sm rounded-full p-2 pointer-events-none">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 text-white animate-pulse">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                            </svg>
+                        </div>
+                        <div class="overflow-x-auto snap-x snap-mandatory scrollbar-hide flex gap-4 pb-4" style="-webkit-overflow-scrolling: touch;">
+                            {subsection.items.map((item) => (
+                                <div 
+                                    class="gallery-item flex-shrink-0 w-[75vw] relative overflow-hidden rounded-xl bg-zinc-900 border border-white/10 aspect-square snap-center"
+                                    data-src={item.type === 'image' ? (item.src as ImageMetadata).src : item.src}
+                                    data-alt={item.alt}
+                                    data-type={item.type}
+                                >
+                                    {item.type === 'image' ? (
+                                        <Image
+                                            src={item.src as ImageMetadata}
+                                            alt={item.alt}
+                                            class="w-full h-full object-cover"
+                                            loading="lazy"
+                                        />
+                                    ) : (
+                                        <div class="relative w-full h-full bg-zinc-950 flex items-center justify-center">
+                                            <video
+                                                src={item.src as string}
+                                                class="w-full h-full object-cover"
+                                                muted
+                                                loop
+                                                playsinline
+                                            />
+                                            <div class="absolute inset-0 flex items-center justify-center bg-black/30">
+                                                <div class="w-16 h-16 rounded-full bg-gold-500/90 flex items-center justify-center">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" class="w-8 h-8 text-black ml-1">
+                                                        <path d="M8 5v14l11-7z"/>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            ))}
+        </section>
+
+        <!-- Bumper Repair Section -->
+        <section id="bumper-repair" class="container mx-auto px-6 mb-20 relative z-10 scroll-mt-24">
+            <div class="text-center mb-12">
+                <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold mb-4">
+                    <span class="bg-gradient-to-r from-bmw-blue to-blue-300 bg-clip-text text-transparent">
+                        Bumper Spot Repair
+                    </span>
+                </h2>
+                <p class="text-gray-400 text-sm md:text-base max-w-3xl mx-auto">
+                    Expert bumper scratch and scuff repair with professional refinishing and color matching
+                </p>
+            </div>
+
+            <!-- Desktop Grid -->
+            <div class="hidden md:grid md:grid-cols-3 lg:grid-cols-4 gap-4">
+                {bumperRepair.items.map((item) => (
                     <div 
-                        class="gallery-item group relative overflow-hidden rounded-xl bg-zinc-900 border border-white/10 hover:border-gold-500/50 transition-all duration-300 cursor-pointer aspect-square"
-                        data-index={index}
+                        class="gallery-item group relative overflow-hidden rounded-xl bg-zinc-900 border border-white/10 hover:border-bmw-blue/50 transition-all duration-300 cursor-pointer aspect-square"
+                        data-src={item.type === 'image' ? (item.src as ImageMetadata).src : item.src}
+                        data-alt={item.alt}
+                        data-type={item.type}
                     >
-                        <Image
-                            src={image.src}
-                            alt={image.alt}
-                            title={image.title}
-                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                            loading="lazy"
-                        />
+                        {item.type === 'image' ? (
+                            <Image
+                                src={item.src as ImageMetadata}
+                                alt={item.alt}
+                                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                loading="lazy"
+                            />
+                        ) : (
+                            <div class="relative w-full h-full bg-zinc-950 flex items-center justify-center">
+                                <video
+                                    src={item.src as string}
+                                    class="w-full h-full object-cover"
+                                    muted
+                                    loop
+                                    playsinline
+                                />
+                                <div class="absolute inset-0 flex items-center justify-center bg-black/30">
+                                    <div class="w-16 h-16 rounded-full bg-bmw-blue/90 flex items-center justify-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" class="w-8 h-8 text-white ml-1">
+                                            <path d="M8 5v14l11-7z"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
                         <!-- Overlay -->
                         <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
                             <div class="text-white">
-                                <p class="text-sm font-medium text-gold-500 mb-1">Click to view</p>
-                                <p class="text-xs text-gray-300">{image.title}</p>
+                                <p class="text-sm font-medium text-bmw-blue mb-1">Click to view</p>
+                                <p class="text-xs text-gray-300">{item.alt}</p>
                             </div>
-                        </div>
-                        <!-- Zoom Icon -->
-                        <div class="absolute top-4 right-4 w-10 h-10 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 text-gold-500">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM10.5 7.5v6m3-3h-6" />
-                            </svg>
                         </div>
                     </div>
                 ))}
             </div>
+
+            <!-- Mobile Slider -->
+            <div class="md:hidden relative">
+                <!-- Scroll Indicator -->
+                <div class="absolute top-1/2 right-2 -translate-y-1/2 z-10 bg-black/50 backdrop-blur-sm rounded-full p-2 pointer-events-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 text-white animate-pulse">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                    </svg>
+                </div>
+                <div class="overflow-x-auto snap-x snap-mandatory scrollbar-hide flex gap-4 pb-4" style="-webkit-overflow-scrolling: touch;">
+                    {bumperRepair.items.map((item) => (
+                        <div 
+                            class="gallery-item flex-shrink-0 w-[75vw] relative overflow-hidden rounded-xl bg-zinc-900 border border-white/10 aspect-square snap-center"
+                            data-src={item.type === 'image' ? (item.src as ImageMetadata).src : item.src}
+                            data-alt={item.alt}
+                            data-type={item.type}
+                        >
+                            {item.type === 'image' ? (
+                                <Image
+                                    src={item.src as ImageMetadata}
+                                    alt={item.alt}
+                                    class="w-full h-full object-cover"
+                                    loading="lazy"
+                                />
+                            ) : (
+                                <div class="relative w-full h-full bg-zinc-950 flex items-center justify-center">
+                                    <video
+                                        src={item.src as string}
+                                        class="w-full h-full object-cover"
+                                        muted
+                                        loop
+                                        playsinline
+                                    />
+                                    <div class="absolute inset-0 flex items-center justify-center bg-black/30">
+                                        <div class="w-16 h-16 rounded-full bg-bmw-blue/90 flex items-center justify-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" class="w-8 h-8 text-white ml-1">
+                                                <path d="M8 5v14l11-7z"/>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    ))}
+                </div>
+            </div>
         </section>
+
 
         <!-- CTA Section -->
         <section class="container mx-auto px-6 mt-20 relative z-10">
@@ -109,7 +406,7 @@ const galleryImages = [
                 <div class="relative z-10">
                     <h2 class="text-3xl md:text-4xl font-bold mb-4">
                         <span class="bg-gradient-to-r from-gold-500 to-white bg-clip-text text-transparent">
-                            Ready to Restore Your Wheels?
+                            Ready to Restore Your Wheels or Bumper?
                         </span>
                     </h2>
                     <p class="text-gray-300 text-lg mb-8 max-w-2xl mx-auto">
@@ -161,19 +458,26 @@ const galleryImages = [
             </svg>
         </button>
 
-        <!-- Image Container -->
+        <!-- Content Container -->
         <div id="lightbox-content" class="relative max-w-6xl max-h-[90vh] w-full h-full flex items-center justify-center">
             <img
                 id="lightbox-image"
                 src=""
                 alt=""
-                class="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
+                class="max-w-full max-h-full object-contain rounded-lg shadow-2xl hidden"
             />
+            <video
+                id="lightbox-video"
+                src=""
+                class="max-w-full max-h-full object-contain rounded-lg shadow-2xl hidden"
+                controls
+                playsinline
+            ></video>
         </div>
 
-        <!-- Image Counter -->
+        <!-- Counter -->
         <div class="absolute bottom-6 left-1/2 -translate-x-1/2 bg-black/50 backdrop-blur-sm px-6 py-3 rounded-full text-white text-sm font-medium">
-            <span id="lightbox-counter">1 / 9</span>
+            <span id="lightbox-counter">1 / 1</span>
         </div>
     </div>
 
@@ -184,31 +488,29 @@ const galleryImages = [
         const galleryItems = document.querySelectorAll('.gallery-item');
         const lightbox = document.getElementById('lightbox');
         const lightboxImage = document.getElementById('lightbox-image') as HTMLImageElement;
+        const lightboxVideo = document.getElementById('lightbox-video') as HTMLVideoElement;
         const lightboxCounter = document.getElementById('lightbox-counter');
         const lightboxClose = document.getElementById('lightbox-close');
         const lightboxPrev = document.getElementById('lightbox-prev');
         const lightboxNext = document.getElementById('lightbox-next');
 
         let currentIndex = 0;
-        const totalImages = galleryItems.length;
+        const totalItems = galleryItems.length;
 
-        // Image sources (we'll populate this from the gallery items)
-        const imageSources: { src: string; alt: string }[] = [];
+        // Media sources
+        const mediaSources: { src: string; alt: string; type: string }[] = [];
 
-        // Populate image sources from gallery items
+        // Populate media sources from gallery items
         galleryItems.forEach((item) => {
-            const img = item.querySelector('img');
-            if (img) {
-                imageSources.push({
-                    src: img.src,
-                    alt: img.alt
-                });
-            }
+            const src = item.getAttribute('data-src') || '';
+            const alt = item.getAttribute('data-alt') || '';
+            const type = item.getAttribute('data-type') || 'image';
+            mediaSources.push({ src, alt, type });
         });
 
         function openLightbox(index: number) {
             currentIndex = index;
-            updateLightboxImage();
+            updateLightboxMedia();
             lightbox?.classList.remove('hidden');
             lightbox?.classList.add('flex');
             document.body.classList.add('overflow-hidden');
@@ -218,26 +520,41 @@ const galleryImages = [
             lightbox?.classList.add('hidden');
             lightbox?.classList.remove('flex');
             document.body.classList.remove('overflow-hidden');
+            // Pause video if playing
+            if (lightboxVideo) {
+                lightboxVideo.pause();
+            }
         }
 
-        function updateLightboxImage() {
-            if (lightboxImage && imageSources[currentIndex]) {
-                lightboxImage.src = imageSources[currentIndex].src;
-                lightboxImage.alt = imageSources[currentIndex].alt;
+        function updateLightboxMedia() {
+            const media = mediaSources[currentIndex];
+            if (!media) return;
+
+            if (media.type === 'image') {
+                lightboxImage.src = media.src;
+                lightboxImage.alt = media.alt;
+                lightboxImage.classList.remove('hidden');
+                lightboxVideo.classList.add('hidden');
+                lightboxVideo.pause();
+            } else {
+                lightboxVideo.src = media.src;
+                lightboxVideo.classList.remove('hidden');
+                lightboxImage.classList.add('hidden');
             }
+
             if (lightboxCounter) {
-                lightboxCounter.textContent = `${currentIndex + 1} / ${totalImages}`;
+                lightboxCounter.textContent = `${currentIndex + 1} / ${totalItems}`;
             }
         }
 
         function showNext() {
-            currentIndex = (currentIndex + 1) % totalImages;
-            updateLightboxImage();
+            currentIndex = (currentIndex + 1) % totalItems;
+            updateLightboxMedia();
         }
 
         function showPrev() {
-            currentIndex = (currentIndex - 1 + totalImages) % totalImages;
-            updateLightboxImage();
+            currentIndex = (currentIndex - 1 + totalItems) % totalItems;
+            updateLightboxMedia();
         }
 
         // Event listeners
@@ -264,6 +581,18 @@ const galleryImages = [
                 if (e.key === 'ArrowLeft') showPrev();
             }
         });
+
+        // Smooth scroll to section on page load if hash is present
+        window.addEventListener('load', () => {
+            if (window.location.hash) {
+                const target = document.querySelector(window.location.hash);
+                if (target) {
+                    setTimeout(() => {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 100);
+                }
+            }
+        });
     </script>
 
     <style>
@@ -281,7 +610,8 @@ const galleryImages = [
             }
         }
 
-        #lightbox-image {
+        #lightbox-image,
+        #lightbox-video {
             animation: zoomIn 0.3s ease-in-out;
         }
 
@@ -294,6 +624,15 @@ const galleryImages = [
                 opacity: 1;
                 transform: scale(1);
             }
+        }
+
+        /* Hide scrollbar for mobile sliders */
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
     </style>
 </Layout>
