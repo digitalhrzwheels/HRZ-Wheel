@@ -485,7 +485,7 @@ const bumperRepair = {
 
     <script>
         // Gallery and Lightbox functionality
-        const galleryItems = document.querySelectorAll('.gallery-item');
+        const allGalleryItems = document.querySelectorAll('.gallery-item');
         const lightbox = document.getElementById('lightbox');
         const lightboxImage = document.getElementById('lightbox-image') as HTMLImageElement;
         const lightboxVideo = document.getElementById('lightbox-video') as HTMLVideoElement;
@@ -495,18 +495,25 @@ const bumperRepair = {
         const lightboxNext = document.getElementById('lightbox-next');
 
         let currentIndex = 0;
-        const totalItems = galleryItems.length;
 
-        // Media sources
-        const mediaSources: { src: string; alt: string; type: string }[] = [];
-
-        // Populate media sources from gallery items
-        galleryItems.forEach((item) => {
+        // Media sources - use a Map to avoid duplicates
+        const mediaMap = new Map<string, { src: string; alt: string; type: string }>();
+        
+        // Populate unique media sources from gallery items
+        allGalleryItems.forEach((item) => {
             const src = item.getAttribute('data-src') || '';
             const alt = item.getAttribute('data-alt') || '';
             const type = item.getAttribute('data-type') || 'image';
-            mediaSources.push({ src, alt, type });
+            
+            // Use src as key to avoid duplicates
+            if (!mediaMap.has(src)) {
+                mediaMap.set(src, { src, alt, type });
+            }
         });
+
+        // Convert map to array for easier indexing
+        const mediaSources = Array.from(mediaMap.values());
+        const totalItems = mediaSources.length;
 
         function openLightbox(index: number) {
             currentIndex = index;
@@ -557,9 +564,16 @@ const bumperRepair = {
             updateLightboxMedia();
         }
 
-        // Event listeners
-        galleryItems.forEach((item, index) => {
-            item.addEventListener('click', () => openLightbox(index));
+        // Event listeners - map each item to its unique media index
+        allGalleryItems.forEach((item) => {
+            item.addEventListener('click', () => {
+                const src = item.getAttribute('data-src') || '';
+                // Find the index in the unique mediaSources array
+                const index = mediaSources.findIndex(media => media.src === src);
+                if (index !== -1) {
+                    openLightbox(index);
+                }
+            });
         });
 
         lightboxClose?.addEventListener('click', closeLightbox);
