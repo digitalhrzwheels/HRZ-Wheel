@@ -34,7 +34,7 @@ export async function POST(context) {
             },
             body: JSON.stringify({
                 from: 'HRZ Wheels <contact@hrzwheelrepair.com>', // Email autenticado
-                to: ['hector@hrzwheel.com'], // Email de destino
+                to:  ['digital.hrzwheels@gmail.com'], // Email de destino (temporal)
                 reply_to: email,
                 subject: `✨ New Quote Request from ${name} - ${service}`,
                 html: generateEmailHTML({ name, phone, email, service, carModel, year, address, description }),
