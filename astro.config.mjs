@@ -8,7 +8,7 @@ import cloudflare from '@astrojs/cloudflare';
 
 // https://astro.build/config
 export default defineConfig({
-    site: 'https://hrzwheelrepair.com/',
+    site: 'https://hrzwheel.com/',
     output: 'server', // Server mode con prerender para páginas estáticas
     adapter: cloudflare({ imageService: 'compile' }),
     integrations: [
