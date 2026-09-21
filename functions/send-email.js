@@ -65,8 +65,9 @@ export async function onRequestPost(context) {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                from: 'HRZ Wheels <hector@hrzwheel.com>', // Email autenticado
-                to: ['hector@hrzwheel.com'], // Email de destino
+                from: 'HRZ Wheels <hector@hrzwheel.com>',  // ✅ verified domain - keep this
+to: ['digital.hrzwheels@gmail.com'],       // ✅ real inbox - change back to this
+
                 reply_to: email,
                 subject: `✨ New Quote Request from ${name} - ${service}`,
                 html: generateEmailHTML({ name, phone, email, service, carModel, year, address, description }),
