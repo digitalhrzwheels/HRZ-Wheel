@@ -65,8 +65,8 @@ export async function onRequestPost(context) {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                from: 'HRZ Wheels <hector@hrzwheel.com>',  // ✅ verified domain - keep this
-to: ['digital.hrzwheels@gmail.com'],       // ✅ real inbox - change back to this
+                from: 'HRZ Wheels <hector@hrzwheel.com>',
+to: ['hector@hrzwheel.com'],
 
                 reply_to: email,
                 subject: `✨ New Quote Request from ${name} - ${service}`,
