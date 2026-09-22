@@ -1,0 +1,82 @@
+---
+// HRZ Wheel Repair – Cosmetic Wheel Repair Service Page
+// URL: https://hrzwheel.com/cosmetic-wheel-repair
+import Layout from '../layouts/Layout.astro';
+
+const pageData = {
+  title: 'Cosmetic Wheel Repair | Scratch & Scuff Removal | HRZ Wheel Repair',
+  description:
+    'Cosmetic wheel repair for scratches, scuffs, paint chips, and clear coat damage. Mobile service across Los Angeles and Orange County.',
+  image: '/og-image.png',
+};
+---
+
+<Layout title={pageData.title} description={pageData.description} image={pageData.image}>
+  <section class="bg-gradient-to-br from-zinc-900 to-zinc-800 py-20 text-center">
+    <div class="mx-auto max-w-3xl px-6">
+      <h1 class="text-4xl font-bold text-white md:text-5xl">Cosmetic Wheel Repair</h1>
+      <p class="mt-4 text-lg text-zinc-300">
+        Scratches, scuffs, chips, and peeling clear coat — restored to factory quality at your
+        location in LA or Orange County.
+      </p>
+      <a
+        href="/contact"
+        class="mt-8 inline-block rounded-lg bg-amber-500 px-8 py-3 font-semibold text-black hover:bg-amber-400"
+      >
+        Get a Free Quote
+      </a>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-6 py-16">
+    <h2 class="text-2xl font-bold text-zinc-900">What Is Cosmetic Wheel Damage?</h2>
+    <p class="mt-4 text-zinc-600">
+      Cosmetic wheel damage includes any surface-level imperfection that affects the appearance of
+      your wheels but not their structural integrity. This includes scratches from road debris,
+      scuffs from parking, paint chips, clear coat peeling, oxidation, and faded finishes. While
+      these issues don't make a wheel unsafe, they make your vehicle look older and less
+      well-maintained than it is.
+    </p>
+
+    <h2 class="mt-12 text-2xl font-bold text-zinc-900">Types of Cosmetic Damage We Fix</h2>
+    <div class="mt-6 grid gap-6 sm:grid-cols-2">
+      <div class="rounded-xl border border-zinc-200 p-6">
+        <h3 class="font-semibold text-zinc-900">Surface Scratches</h3>
+        <p class="mt-2 text-zinc-600">Light to moderate scratches from road debris and daily wear.</p>
+      </div>
+      <div class="rounded-xl border border-zinc-200 p-6">
+        <h3 class="font-semibold text-zinc-900">Paint Chips</h3>
+        <p class="mt-2 text-zinc-600">Chipped paint from rocks, gravel, and impact damage.</p>
+      </div>
+      <div class="rounded-xl border border-zinc-200 p-6">
+        <h3 class="font-semibold text-zinc-900">Clear Coat Peeling</h3>
+        <p class="mt-2 text-zinc-600">Flaking or peeling clear coat that exposes the base layer.</p>
+      </div>
+      <div class="rounded-xl border border-zinc-200 p-6">
+        <h3 class="font-semibold text-zinc-900">Oxidation &amp; Fading</h3>
+        <p class="mt-2 text-zinc-600">Dull, faded, or cloudy wheels restored to original shine.</p>
+      </div>
+    </div>
+
+    <h2 class="mt-12 text-2xl font-bold text-zinc-900">Our Cosmetic Repair Process</h2>
+    <ol class="mt-6 space-y-4">
+      <li><strong class="text-zinc-900">1. Clean &amp; Inspect</strong> — We clean the wheel and assess the full extent of the damage.</li>
+      <li><strong class="text-zinc-900">2. Sand &amp; Prep</strong> — Damaged areas are sanded and prepped for refinishing.</li>
+      <li><strong class="text-zinc-900">3. Color Match</strong> — We match the paint to your wheel's original finish.</li>
+      <li><strong class="text-zinc-900">4. Paint &amp; Clear Coat</strong> — Color and clear coat are applied for a durable, factory-quality finish.</li>
+      <li><strong class="text-zinc-900">5. Polish &amp; Blend</strong> — The repaired area is polished and blended for a seamless look.</li>
+    </ol>
+
+    <div class="mt-12 rounded-xl bg-zinc-50 p-8 text-center">
+      <h2 class="text-2xl font-bold text-zinc-900">Restore Your Wheels' Appearance</h2>
+      <p class="mt-2 text-zinc-600">Mobile cosmetic wheel repair in LA and Orange County.</p>
+      <div class="mt-6 flex flex-col items-center justify-center gap-4 sm:flex-row">
+        <a href="/contact" class="rounded-lg bg-amber-500 px-8 py-3 font-semibold text-black hover:bg-amber-400">
+          Get a Free Quote
+        </a>
+        <a href="/wheel-repair-los-angeles" class="font-semibold text-amber-600 underline">LA Service Area</a>
+        <a href="/wheel-repair-orange-county" class="font-semibold text-amber-600 underline">OC Service Area</a>
+      </div>
+    </div>
+  </section>
+</Layout>
