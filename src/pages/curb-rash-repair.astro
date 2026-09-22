@@ -1,0 +1,121 @@
+---
+// HRZ Wheel Repair – Curb Rash Repair Service Page
+// URL: https://hrzwheel.com/curb-rash-repair
+import Layout from '../layouts/Layout.astro';
+
+const pageData = {
+  title: 'Curb Rash Repair | Mobile Rim Scratch Repair | HRZ Wheel Repair',
+  description:
+    'Professional curb rash repair — mobile rim scratch and gouge repair at your location in Los Angeles and Orange County. Restore your wheels to factory condition.',
+  image: '/og-image.png',
+};
+---
+
+<Layout title={pageData.title} description={pageData.description} image={pageData.image}>
+  <section class="bg-gradient-to-br from-zinc-900 to-zinc-800 py-20 text-center">
+    <div class="mx-auto max-w-3xl px-6">
+      <h1 class="text-4xl font-bold text-white md:text-5xl">Curb Rash Repair</h1>
+      <p class="mt-4 text-lg text-zinc-300">
+        Scraped your rim on a curb? Our mobile technicians repair curb damage on-site — anywhere in
+        Los Angeles or Orange County.
+      </p>
+      <a
+        href="/contact"
+        class="mt-8 inline-block rounded-lg bg-amber-500 px-8 py-3 font-semibold text-black hover:bg-amber-400"
+      >
+        Get a Free Quote
+      </a>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-6 py-16">
+    <h2 class="text-2xl font-bold text-zinc-900">What Is Curb Rash?</h2>
+    <p class="mt-4 text-zinc-600">
+      Curb rash is the damage caused when a wheel rim scrapes against a curb, typically while
+      parking. It leaves visible scratches, gouges, and scuffs on the outer edge of the alloy wheel.
+      While it doesn't usually affect the structural integrity of the wheel, it significantly
+      detracts from your vehicle's appearance and resale value.
+    </p>
+
+    <h2 class="mt-12 text-2xl font-bold text-zinc-900">Our Curb Rash Repair Process</h2>
+    <ol class="mt-6 space-y-6">
+      <li>
+        <h3 class="text-lg font-semibold text-zinc-900">1. Assess the Damage</h3>
+        <p class="mt-1 text-zinc-600">
+          We inspect the wheel to determine the depth and extent of the curb damage.
+        </p>
+      </li>
+      <li>
+        <h3 class="text-lg font-semibold text-zinc-900">2. Sand &amp; Smooth</h3>
+        <p class="mt-1 text-zinc-600">
+          The damaged area is sanded down to remove scratches and smooth out gouges.
+        </p>
+      </li>
+      <li>
+        <h3 class="text-lg font-semibold text-zinc-900">3. Fill &amp; Reshape</h3>
+        <p class="mt-1 text-zinc-600">
+          Deeper gouges are filled and reshaped to match the original wheel contour.
+        </p>
+      </li>
+      <li>
+        <h3 class="text-lg font-semibold text-zinc-900">4. Prime &amp; Paint</h3>
+        <p class="mt-1 text-zinc-600">
+          We apply primer, color-matched paint, and clear coat to restore the factory finish.
+        </p>
+      </li>
+      <li>
+        <h3 class="text-lg font-semibold text-zinc-900">5. Final Polish</h3>
+        <p class="mt-1 text-zinc-600">
+          The repaired area is polished and blended seamlessly with the rest of the wheel.
+        </p>
+      </li>
+    </ol>
+
+    <h2 class="mt-12 text-2xl font-bold text-zinc-900">Why Fix Curb Rash?</h2>
+    <ul class="mt-4 space-y-3 text-zinc-600">
+      <li class="flex gap-3">
+        <span class="text-amber-500">&#10003;</span>
+        Restores the appearance of your wheels and vehicle
+      </li>
+      <li class="flex gap-3">
+        <span class="text-amber-500">&#10003;</span>
+        Protects the wheel from further corrosion and damage
+      </li>
+      <li class="flex gap-3">
+        <span class="text-amber-500">&#10003;</span>
+        Increases resale value — buyers notice damaged wheels
+      </li>
+      <li class="flex gap-3">
+        <span class="text-amber-500">&#10003;</span>
+        Costs far less than full wheel replacement
+      </li>
+    </ul>
+
+    <div class="mt-12 rounded-xl bg-zinc-50 p-8 text-center">
+      <h2 class="text-2xl font-bold text-zinc-900">Got Curb Rash? We'll Come to You</h2>
+      <p class="mt-2 text-zinc-600">
+        Mobile curb rash repair in Los Angeles and Orange County.
+      </p>
+      <div class="mt-6 flex flex-col items-center justify-center gap-4 sm:flex-row">
+        <a
+          href="/contact"
+          class="rounded-lg bg-amber-500 px-8 py-3 font-semibold text-black hover:bg-amber-400"
+        >
+          Get a Free Quote
+        </a>
+        <a
+          href="/wheel-repair-los-angeles"
+          class="font-semibold text-amber-600 underline"
+        >
+          Los Angeles Service Area
+        </a>
+        <a
+          href="/wheel-repair-orange-county"
+          class="font-semibold text-amber-600 underline"
+        >
+          Orange County Service Area
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
