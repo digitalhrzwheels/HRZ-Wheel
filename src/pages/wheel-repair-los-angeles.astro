@@ -1,8 +1,8 @@
 ---
-import Header from '../components/Header.astro';
 // HRZ Wheel Repair – Los Angeles Location Page
 // URL: https://hrzwheel.com/wheel-repair-los-angeles
 import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
 
 const pageData = {
   title: 'Mobile Wheel Repair in Los Angeles | HRZ Wheel Repair',
@@ -45,29 +45,30 @@ const faqSchema = {
 ---
 
 <Layout title={pageData.title} description={pageData.description} image={pageData.image}>
-  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
   <Header />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
 
   <!-- Hero Section -->
-  <section class="relative overflow-hidden bg-gradient-to-br from-zinc-900 to-zinc-800 py-20 md:py-28">
-    <div class="mx-auto max-w-4xl px-6 text-center">
-      <h1 class="text-4xl font-bold tracking-tight text-white md:text-5xl">
+  <section class="relative overflow-hidden pt-32 pb-20 px-6">
+    <div class="absolute inset-0 bg-gradient-to-br from-black via-zinc-900 to-black"></div>
+    <div class="relative mx-auto max-w-4xl text-center">
+      <h1 class="text-4xl md:text-5xl font-bold text-white mb-6">
         Mobile Wheel Repair in Los Angeles
       </h1>
-      <p class="mt-4 text-lg text-zinc-300 md:text-xl">
+      <p class="text-lg md:text-xl text-gray-300 mb-10">
         Professional cosmetic wheel repair and curb rash repair — delivered to your location
         anywhere in LA.
       </p>
-      <div class="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
         <a
-          href="/contact"
-          class="rounded-lg bg-amber-500 px-8 py-3 text-base font-semibold text-black transition hover:bg-amber-400"
+          href="/quote"
+          class="bg-gold-500 hover:bg-gold-400 text-black px-8 py-3 rounded-full font-bold transition-all transform hover:scale-105"
         >
           Get a Free Quote
         </a>
         <a
           href="tel:+16268632885"
-          class="rounded-lg border border-zinc-600 px-8 py-3 text-base font-semibold text-white transition hover:border-zinc-400"
+          class="border border-gold-500 text-gold-500 hover:bg-gold-500 hover:text-black px-8 py-3 rounded-full font-bold transition-all"
         >
           Call or Text Us
         </a>
@@ -76,191 +77,165 @@ const faqSchema = {
   </section>
 
   <!-- Services Overview -->
-  <section class="mx-auto max-w-5xl px-6 py-16">
-    <h2 class="text-3xl font-bold text-zinc-900">Our Los Angeles Wheel Repair Services</h2>
-    <p class="mt-4 text-lg text-zinc-600">
-      We bring the repair shop to you. Whether you're dealing with curb damage, scuffed rims, or
-      cosmetic wear, our mobile service covers all of Los Angeles.
-    </p>
+  <section class="py-20 px-6">
+    <div class="mx-auto max-w-5xl">
+      <h2 class="text-3xl font-bold text-white text-center mb-4">Our Los Angeles Wheel Repair Services</h2>
+      <p class="text-lg text-gray-400 text-center mb-12 max-w-2xl mx-auto">
+        We bring the repair shop to you. Whether you're dealing with curb damage, scuffed rims, or
+        cosmetic wear, our mobile service covers all of Los Angeles.
+      </p>
 
-    <div class="mt-10 grid gap-8 md:grid-cols-3">
-      <div class="rounded-xl border border-zinc-200 p-6">
-        <h3 class="text-xl font-semibold text-zinc-900">Curb Rash Repair</h3>
-        <p class="mt-2 text-zinc-600">
-          Scraped or gouged your rim on a curb? We restore the damaged area, fill gouges, and
-          refinish the wheel to match its original appearance — all at your location.
-        </p>
-      </div>
-      <div class="rounded-xl border border-zinc-200 p-6">
-        <h3 class="text-xl font-semibold text-zinc-900">Cosmetic Wheel Repair</h3>
-        <p class="mt-2 text-zinc-600">
-          Scuffs, scratches, paint chips, and clear coat peeling? Our cosmetic repair process
-          brings back the factory finish without removing the wheel from your vehicle.
-        </p>
-      </div>
-      <div class="rounded-xl border border-zinc-200 p-6">
-        <h3 class="text-xl font-semibold text-zinc-900">Mobile Service</h3>
-        <p class="mt-2 text-zinc-600">
-          No shop visit required. We arrive at your home, office, or parking spot anywhere in Los
-          Angeles with everything needed to complete the repair on-site.
-        </p>
+      <div class="grid gap-8 md:grid-cols-3">
+        <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-8 hover:border-gold-500 transition-colors">
+          <h3 class="text-xl font-bold text-gold-500 mb-3">Curb Rash Repair</h3>
+          <p class="text-gray-400">
+            Scraped or gouged your rim on a curb? We restore the damaged area, fill gouges, and
+            refinish the wheel to match its original appearance — all at your location.
+          </p>
+        </div>
+        <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-8 hover:border-gold-500 transition-colors">
+          <h3 class="text-xl font-bold text-gold-500 mb-3">Cosmetic Wheel Repair</h3>
+          <p class="text-gray-400">
+            Scuffs, scratches, paint chips, and clear coat peeling? Our cosmetic repair process
+            brings back the factory finish without removing the wheel from your vehicle.
+          </p>
+        </div>
+        <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-8 hover:border-gold-500 transition-colors">
+          <h3 class="text-xl font-bold text-gold-500 mb-3">Mobile Service</h3>
+          <p class="text-gray-400">
+            No shop visit required. We arrive at your home, office, or parking spot anywhere in Los
+            Angeles with everything needed to complete the repair on-site.
+          </p>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- How It Works -->
-  <section class="bg-zinc-50 py-16">
-    <div class="mx-auto max-w-4xl px-6">
-      <h2 class="text-3xl font-bold text-zinc-900">How Our Mobile Service Works</h2>
-      <ol class="mt-10 space-y-8">
-        <li class="flex gap-6">
-          <span class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-amber-500 text-xl font-bold text-black">1</span>
+  <section class="py-20 px-6 bg-zinc-950">
+    <div class="mx-auto max-w-4xl">
+      <h2 class="text-3xl font-bold text-white text-center mb-12">How Our Mobile Service Works</h2>
+      <div class="space-y-8">
+        <div class="flex gap-6 items-start">
+          <span class="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-full bg-gold-500 text-black font-bold text-xl">1</span>
           <div>
-            <h3 class="text-lg font-semibold text-zinc-900">Contact Us</h3>
-            <p class="mt-1 text-zinc-600">
-              Call, text, or fill out our contact form. Tell us about the damage and your Los
-              Angeles location.
-            </p>
+            <h3 class="text-lg font-bold text-white mb-1">Contact Us</h3>
+            <p class="text-gray-400">Call, text, or fill out our quote form. Tell us about the damage and your Los Angeles location.</p>
           </div>
-        </li>
-        <li class="flex gap-6">
-          <span class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-amber-500 text-xl font-bold text-black">2</span>
+        </div>
+        <div class="flex gap-6 items-start">
+          <span class="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-full bg-gold-500 text-black font-bold text-xl">2</span>
           <div>
-            <h3 class="text-lg font-semibold text-zinc-900">Schedule a Visit</h3>
-            <p class="mt-1 text-zinc-600">
-              We'll set up a time that works for you. Same-day appointments are often available
-              across the LA area.
-            </p>
+            <h3 class="text-lg font-bold text-white mb-1">Schedule a Visit</h3>
+            <p class="text-gray-400">We'll set up a time that works for you. Same-day appointments are often available across the LA area.</p>
           </div>
-        </li>
-        <li class="flex gap-6">
-          <span class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-amber-500 text-xl font-bold text-black">3</span>
+        </div>
+        <div class="flex gap-6 items-start">
+          <span class="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-full bg-gold-500 text-black font-bold text-xl">3</span>
           <div>
-            <h3 class="text-lg font-semibold text-zinc-900">We Come to You</h3>
-            <p class="mt-1 text-zinc-600">
-              Our technician arrives with all tools and materials. Most repairs are completed in
-              under an hour per wheel.
-            </p>
+            <h3 class="text-lg font-bold text-white mb-1">We Come to You</h3>
+            <p class="text-gray-400">Our technician arrives with all tools and materials. Most repairs are completed in under an hour per wheel.</p>
           </div>
-        </li>
-        <li class="flex gap-6">
-          <span class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-amber-500 text-xl font-bold text-black">4</span>
+        </div>
+        <div class="flex gap-6 items-start">
+          <span class="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-full bg-gold-500 text-black font-bold text-xl">4</span>
           <div>
-            <h3 class="text-lg font-semibold text-zinc-900">Drive Away</h3>
-            <p class="mt-1 text-zinc-600">
-              Your wheels look like new. No waiting at a shop, no leaving your car behind.
-            </p>
+            <h3 class="text-lg font-bold text-white mb-1">Drive Away</h3>
+            <p class="text-gray-400">Your wheels look like new. No waiting at a shop, no leaving your car behind.</p>
           </div>
-        </li>
-      </ol>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- Service Areas -->
-  <section class="mx-auto max-w-4xl px-6 py-16">
-    <h2 class="text-3xl font-bold text-zinc-900">Areas We Serve in Los Angeles</h2>
-    <p class="mt-4 text-lg text-zinc-600">
-      Our mobile wheel repair covers the greater Los Angeles area, including:
-    </p>
-    <div class="mt-8 grid grid-cols-2 gap-4 md:grid-cols-3">
-      {[
-        'Los Angeles',
-        'Beverly Hills',
-        'Santa Monica',
-        'Culver City',
-        'West Hollywood',
-        'Glendale',
-        'Burbank',
-        'Pasadena',
-        'Inglewood',
-        'Marina del Rey',
-        'Venice',
-        'Century City',
-        'Encino',
-        'Tarzana',
-        'Woodland Hills',
-        'Sherman Oaks',
-        'North Hollywood',
-        'Studio City',
-      ].map((city) => (
-        <div class="flex items-center gap-2 text-zinc-700">
-          <span class="text-amber-500">&#10003;</span>
-          {city}
-        </div>
-      ))}
+  <section class="py-20 px-6">
+    <div class="mx-auto max-w-4xl">
+      <h2 class="text-3xl font-bold text-white text-center mb-4">Areas We Serve in Los Angeles</h2>
+      <p class="text-lg text-gray-400 text-center mb-10">
+        Our mobile wheel repair covers the greater Los Angeles area, including:
+      </p>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+        {[
+          'Los Angeles', 'Beverly Hills', 'Santa Monica', 'Culver City', 'West Hollywood',
+          'Glendale', 'Burbank', 'Pasadena', 'Inglewood', 'Marina del Rey', 'Venice',
+          'Century City', 'Encino', 'Tarzana', 'Woodland Hills', 'Sherman Oaks',
+          'North Hollywood', 'Studio City',
+        ].map((city) => (
+          <div class="flex items-center gap-2 text-gray-300">
+            <span class="text-gold-500">&#10003;</span>
+            {city}
+          </div>
+        ))}
+      </div>
+      <p class="mt-8 text-center text-gray-400">
+        Don't see your area listed? <a href="/quote" class="text-gold-500 font-semibold underline">Contact us</a> —
+        we may still cover your neighborhood.
+      </p>
     </div>
-    <p class="mt-6 text-zinc-600">
-      Don't see your area listed? <a href="/contact" class="font-semibold text-amber-600 underline">Contact us</a> —
-      we may still cover your neighborhood.
-    </p>
   </section>
 
   <!-- Before / After -->
-  <section class="bg-zinc-50 py-16">
-    <div class="mx-auto max-w-4xl px-6">
-      <h2 class="text-3xl font-bold text-zinc-900">Before & After</h2>
-      <p class="mt-4 text-zinc-600">
+  <section class="py-20 px-6 bg-zinc-950">
+    <div class="mx-auto max-w-4xl">
+      <h2 class="text-3xl font-bold text-white text-center mb-4">Before & After</h2>
+      <p class="text-gray-400 text-center mb-10">
         See the difference our mobile wheel repair makes. (Add your before/after photos here.)
       </p>
-      <div class="mt-8 grid gap-6 sm:grid-cols-2">
-        <div class="overflow-hidden rounded-xl bg-zinc-200">
-          <!-- Replace with actual before image -->
-          <div class="flex aspect-video items-center justify-center text-zinc-400">Before Photo</div>
-        </div>
-        <div class="overflow-hidden rounded-xl bg-zinc-200">
-          <!-- Replace with actual after image -->
-          <div class="flex aspect-video items-center justify-center text-zinc-400">After Photo</div>
-        </div>
+      <div class="grid gap-6 sm:grid-cols-2">
+        <div class="aspect-video bg-zinc-800 rounded-xl flex items-center justify-center text-gray-600">Before Photo</div>
+        <div class="aspect-video bg-zinc-800 rounded-xl flex items-center justify-center text-gray-600">After Photo</div>
       </div>
     </div>
   </section>
 
   <!-- FAQ -->
-  <section class="mx-auto max-w-3xl px-6 py-16">
-    <h2 class="text-3xl font-bold text-zinc-900">Frequently Asked Questions</h2>
-    <div class="mt-8 space-y-6">
-      <div>
-        <h3 class="text-lg font-semibold text-zinc-900">How does mobile wheel repair work?</h3>
-        <p class="mt-2 text-zinc-600">
-          We come to your home, office, or any location in Los Angeles. Our technician arrives with
-          all the equipment needed to repair your wheels on-site — no need to leave your vehicle at
-          a shop.
-        </p>
-      </div>
-      <div>
-        <h3 class="text-lg font-semibold text-zinc-900">How long does curb rash repair take?</h3>
-        <p class="mt-2 text-zinc-600">
-          Most curb rash repairs take 30–60 minutes per wheel depending on severity. We can
-          typically complete all four wheels in a single visit.
-        </p>
-      </div>
-      <div>
-        <h3 class="text-lg font-semibold text-zinc-900">Do you serve my part of Los Angeles?</h3>
-        <p class="mt-2 text-zinc-600">
-          We cover the greater LA area from Pasadena to Marina del Rey. If you're unsure whether we
-          reach your neighborhood, just call or text us.
-        </p>
+  <section class="py-20 px-6">
+    <div class="mx-auto max-w-3xl">
+      <h2 class="text-3xl font-bold text-white text-center mb-10">Frequently Asked Questions</h2>
+      <div class="space-y-6">
+        <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
+          <h3 class="text-lg font-bold text-gold-500 mb-2">How does mobile wheel repair work?</h3>
+          <p class="text-gray-400">
+            We come to your home, office, or any location in Los Angeles. Our technician arrives with
+            all the equipment needed to repair your wheels on-site — no need to leave your vehicle at a shop.
+          </p>
+        </div>
+        <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
+          <h3 class="text-lg font-bold text-gold-500 mb-2">How long does curb rash repair take?</h3>
+          <p class="text-gray-400">
+            Most curb rash repairs take 30–60 minutes per wheel depending on severity. We can
+            typically complete all four wheels in a single visit.
+          </p>
+        </div>
+        <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
+          <h3 class="text-lg font-bold text-gold-500 mb-2">Do you serve my part of Los Angeles?</h3>
+          <p class="text-gray-400">
+            We cover the greater LA area from Pasadena to Marina del Rey. If you're unsure whether we
+            reach your neighborhood, just call or text us.
+          </p>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- CTA -->
-  <section class="bg-gradient-to-br from-zinc-900 to-zinc-800 py-16">
-    <div class="mx-auto max-w-3xl px-6 text-center">
-      <h2 class="text-3xl font-bold text-white">Ready to Fix Your Wheels?</h2>
-      <p class="mt-4 text-lg text-zinc-300">
+  <section class="py-20 px-6 bg-gradient-to-br from-black via-zinc-900 to-black">
+    <div class="mx-auto max-w-3xl text-center">
+      <h2 class="text-3xl font-bold text-white mb-4">Ready to Fix Your Wheels?</h2>
+      <p class="text-lg text-gray-300 mb-8">
         Mobile wheel repair anywhere in Los Angeles. Call, text, or book online today.
       </p>
-      <div class="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
         <a
-          href="/contact"
-          class="rounded-lg bg-amber-500 px-8 py-3 text-base font-semibold text-black transition hover:bg-amber-400"
+          href="/quote"
+          class="bg-gold-500 hover:bg-gold-400 text-black px-8 py-3 rounded-full font-bold transition-all transform hover:scale-105"
         >
           Get a Free Quote
         </a>
         <a
           href="tel:+16268632885"
-          class="rounded-lg border border-zinc-600 px-8 py-3 text-base font-semibold text-white transition hover:border-zinc-400"
+          class="border border-gold-500 text-gold-500 hover:bg-gold-500 hover:text-black px-8 py-3 rounded-full font-bold transition-all"
         >
           Call or Text
         </a>
@@ -269,12 +244,10 @@ const faqSchema = {
   </section>
 
   <!-- Internal link to OC page -->
-  <section class="mx-auto max-w-3xl px-6 py-10 text-center">
-    <p class="text-zinc-500">
+  <section class="py-10 px-6 text-center">
+    <p class="text-gray-500">
       Also serving Orange County —
-      <a href="/wheel-repair-orange-county" class="font-semibold text-amber-600 underline">
-        Wheel Repair Orange County
-      </a>
+      <a href="/wheel-repair-orange-county" class="text-gold-500 font-semibold underline">Wheel Repair Orange County</a>
     </p>
   </section>
 </Layout>
