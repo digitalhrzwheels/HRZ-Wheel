@@ -2,6 +2,7 @@
 // HRZ Wheel Repair – Orange County Location Page
 // URL: https://hrzwheel.com/wheel-repair-orange-county
 import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
 
 const pageData = {
   title: 'Mobile Wheel Repair in Orange County | HRZ Wheel Repair',
@@ -45,6 +46,7 @@ const faqSchema = {
 
 <Layout title={pageData.title} description={pageData.description} image={pageData.image}>
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <Header />
 
   <!-- Hero Section -->
   <section class="relative overflow-hidden bg-gradient-to-br from-zinc-900 to-zinc-800 py-20 md:py-28">
