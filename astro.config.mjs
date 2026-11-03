@@ -27,8 +27,9 @@ export default defineConfig({
     },
     trailingSlash: 'never',
     build: {
-        format: 'file'
-    },
+  inlineStylesheets: 'auto',
+  target: 'es2022',
+}
     compressHTML: true,
     image: {
         // Optimización agresiva de imágenes
