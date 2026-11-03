@@ -1,0 +1,15 @@
+{
+  "name": "HRZ Wheel Repair",
+  "description": "Mobile wheel repair service in Los Angeles and Orange County. Specializing in curb rash repair, alloy wheel refinishing, and bumper spot repair.",
+  "url": "https://hrzwheel.com/",
+  "resources": [
+    {
+      "type": "website",
+      "url": "https://hrzwheel.com/"
+    },
+    {
+      "type": "documentation",
+      "url": "https://hrzwheel.com/llms.txt"
+    }
+  ]
+}
