@@ -34,14 +34,20 @@ const ogImageUrl = image || `${siteUrl}/og-image.png`;
 <!doctype html>
 <html lang="en" class="scroll-smooth">
     <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content=
+                <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+        <link rel="icon" type="image/png" href="/hrz-ico.png" />
+        <meta name="generator" content={Astro.generator} />
+
+        <!-- LCP preload — starts downloading hero image immediately -->
+        <link rel="preload" as="image" href="/cdn-cgi/image/format=auto/Images/your-hero-image.jpg" fetchpriority="high" />
+
         <!-- Preconnect to Google Analytics for faster loading -->
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+        <link rel="preconnect" href="https://hrzwheel.com" />
+        <link rel="dns-prefetch" href="https://cdn.sanity.io" />
 
-        <!-- Google tag (gtag.js) - Deferred loading for better performance -->
-        <script
             type="text/partytown"
             async
             src="https://www.googletagmanager.com/gtag/js?id=G-CFXBMQPXLE"
