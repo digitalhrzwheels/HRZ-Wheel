@@ -20,13 +20,6 @@ export default defineConfig({
             },
         }),
     ],
-    build: {
-        inlineStylesheets: 'auto',
-        target: 'es2022',
-    },
-});
-
-    ],
     vite: {
         plugins: [
             tailwindcss(),
@@ -34,28 +27,24 @@ export default defineConfig({
     },
     trailingSlash: 'never',
     build: {
-  inlineStylesheets: 'auto',
-  target: 'es2022',
-}
+        inlineStylesheets: 'auto',
+        target: 'es2022',
+    },
     compressHTML: true,
     image: {
-        // Optimización agresiva de imágenes
         service: {
             entrypoint: 'astro/assets/services/sharp',
             config: {
-                limitInputPixels: 268402689, // ~16384x16384
+                limitInputPixels: 268402689,
             }
         },
-        // Formatos modernos primero
         formats: ['avif', 'webp'],
-        // Calidad de compresión
         quality: {
-            avif: 60,  // AVIF muy comprimido (excelente calidad visual)
-            webp: 70,  // WebP buena compresión
-            jpg: 80,   // JPG fallback
-            png: 80,   // PNG fallback
+            avif: 60,
+            webp: 70,
+            jpg: 80,
+            png: 80,
         },
-        // Densidades para responsive
         densities: [1, 1.5, 2],
     },
 });
