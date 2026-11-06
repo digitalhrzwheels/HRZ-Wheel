@@ -3,10 +3,8 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import robotsTxt from 'astro-robots-txt';
 import tailwindcss from '@tailwindcss/vite';
-import partytown from '@astrojs/partytown';
 import cloudflare from '@astrojs/cloudflare';
 
-// https://astro.build/config
 export default defineConfig({
     site: 'https://hrzwheel.com',
     output: 'server',
@@ -14,11 +12,6 @@ export default defineConfig({
     integrations: [
         sitemap(),
         robotsTxt(),
-        partytown({
-            config: {
-                forward: ['dataLayer.push'],
-            },
-        }),
     ],
     vite: {
         plugins: [
