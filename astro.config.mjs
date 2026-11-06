@@ -9,6 +9,7 @@ export default defineConfig({
     site: 'https://hrzwheel.com',
     output: 'server',
     adapter: cloudflare({ imageService: 'compile' }),
+    csp: true,
     integrations: [
         sitemap(),
         robotsTxt(),
