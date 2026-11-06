@@ -112,3 +112,4 @@ async function fetchHashnodePosts(host, first = 20) {
     const result = await response.json();
     return result.data?.publication?.posts?.edges?.map(edge => edge.node) || [];
 }
+
