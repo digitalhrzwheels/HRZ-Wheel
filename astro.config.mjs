@@ -42,3 +42,4 @@ export default defineConfig({
         densities: [1, 1.5, 2],
     },
 });
+
