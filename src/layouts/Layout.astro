@@ -39,8 +39,9 @@ const ogImageUrl = image || `${siteUrl}/og-image.png`;
         <link rel="icon" type="image/png" href="/hrz-ico.png" />
         <meta name="generator" content={Astro.generator} />
 
-        <!-- LCP preload — starts downloading hero image immediately -->
-        <link rel="preload" as="image" href="/cdn-cgi/image/format=auto/Images/your-hero-image.jpg" fetchpriority="high" />
+                <!-- LCP preload — starts downloading hero image immediately -->
+        <link rel="preload" as="image" href="/_astro/Rim%20wheel.CZWo9cjr_1Fa3Op.webp" fetchpriority="high" />
+
 
         <!-- Preconnect to Google Analytics for faster loading -->
         <link rel="preconnect" href="https://www.googletagmanager.com" />
@@ -48,19 +49,11 @@ const ogImageUrl = image || `${siteUrl}/og-image.png`;
         <link rel="preconnect" href="https://hrzwheel.com" />
         <link rel="dns-prefetch" href="https://cdn.sanity.io" />
 
+                   <script
             type="text/partytown"
             async
             src="https://www.googletagmanager.com/gtag/js?id=G-CFXBMQPXLE"
         ></script>
-        <script type="text/partytown">
-            window.dataLayer = window.dataLayer || [];
-            function gtag() {
-                dataLayer.push(arguments);
-            }
-            gtag("js", new Date());
-
-            gtag("config", "G-CFXBMQPXLE");
-        </script>
 
         <SEO
             title={title}
