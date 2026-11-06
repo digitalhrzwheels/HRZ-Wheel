@@ -2,6 +2,7 @@
   "name": "hrz-wheels",
   "type": "module",
   "version": "0.0.1",
+  "browserslist": ["last 2 versions", "not dead"],
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
