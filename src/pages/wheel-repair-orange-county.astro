@@ -32,7 +32,7 @@ const faqSchema = {
         text: 'We handle curb rash repair, cosmetic wheel repair, scuff removal, and alloy wheel restoration — all performed on-site at your location.',
       },
     },
-    {
+       {
       '@type': 'Question',
       name: 'How quickly can you come to Orange County?',
       acceptedAnswer: {
@@ -40,8 +40,33 @@ const faqSchema = {
         text: 'We typically schedule Orange County appointments within a few days, and same-week service is usually available. Call or text to check current availability.',
       },
     },
+    {
+      '@type': 'Question',
+      name: 'How much does mobile wheel repair cost in Orange County?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Pricing depends on the extent of damage and number of wheels. Most curb rash repairs start at an affordable per-wheel rate. Contact us for a free quote based on photos of your damage.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Do you repair all types of wheels in Orange County?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes. We repair alloy wheels, including silver, gold, black, and custom finishes. We service all major brands including Audi, BMW, Mercedes, Tesla, Honda, Subaru, Lexus, and more.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Do I need to remove my wheels for repair?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'No. Our mobile service performs cosmetic wheel repair with the wheels on your car, saving you time and hassle.',
+      },
+    },
   ],
 };
+
 ---
 
 <Layout title={pageData.title} description={pageData.description} image={pageData.image}>
@@ -237,15 +262,33 @@ const faqSchema = {
             performed on-site at your location.
           </p>
         </div>
-        <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
+               <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
           <h3 class="text-lg font-bold text-gold-500 mb-2">How quickly can you come to OC?</h3>
           <p class="text-gray-400">
             We typically schedule Orange County appointments within a few days, and same-week service
             is usually available. Call or text to check current availability.
           </p>
         </div>
+        <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
+          <h3 class="text-lg font-bold text-gold-500 mb-2">How much does mobile wheel repair cost in OC?</h3>
+          <p class="text-gray-400">
+            Pricing depends on the extent of damage and number of wheels. Most curb rash repairs start at an affordable per-wheel rate. Contact us for a free quote based on photos of your damage.
+          </p>
+        </div>
+        <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
+          <h3 class="text-lg font-bold text-gold-500 mb-2">Do you repair all types of wheels?</h3>
+          <p class="text-gray-400">
+            Yes. We repair alloy wheels, including silver, gold, black, and custom finishes. We service all major brands including Audi, BMW, Mercedes, Tesla, Honda, Subaru, Lexus, and more.
+          </p>
+        </div>
+        <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
+          <h3 class="text-lg font-bold text-gold-500 mb-2">Do I need to remove my wheels for repair?</h3>
+          <p class="text-gray-400">
+            No. Our mobile service performs cosmetic wheel repair with the wheels on your car, saving you time and hassle.
+          </p>
+        </div>
       </div>
-    </div>
+
   </section>
 
   <!-- CTA -->
