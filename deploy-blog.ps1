@@ -3,7 +3,7 @@ npm run build
 
 if ($LASTEXITCODE -eq 0) {
     Write-Host "✅ Build successful! Deploying to Cloudflare..." -ForegroundColor Green
-    wrangler pages deploy dist --project-name=hrz-wheels
+   wrangler pages deploy dist --project-name=hrz-wheel
     
     if ($LASTEXITCODE -eq 0) {
         Write-Host "🎉 Deploy completed successfully!" -ForegroundColor Green
