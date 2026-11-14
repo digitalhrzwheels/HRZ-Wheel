@@ -7,7 +7,7 @@ if ($LASTEXITCODE -eq 0) {
     
     if ($LASTEXITCODE -eq 0) {
         Write-Host "🎉 Deploy completed successfully!" -ForegroundColor Green
-        Write-Host "🌐 Your blog is now updated at: https://hrz-wheels.pages.dev/blog" -ForegroundColor Cyan
+        Write-Host "🌐 Your blog is now updated at: https://hrz-wheel.pages.dev/blog" -ForegroundColor Cyan
     } else {
         Write-Host "❌ Deploy failed!" -ForegroundColor Red
     }
