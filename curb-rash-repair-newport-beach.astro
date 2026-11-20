@@ -1,0 +1,264 @@
+---
+// HRZ Wheel – Newport Beach Location Page
+// URL: https://hrzwheel.com/curb-rash-repair-newport-beach
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import { Image } from 'astro:assets';
+import beforeAfter1 from '../assets/images/Gallery/Ford Fusion befor and after.webp';
+import beforeAfter2 from '../assets/images/Gallery/20160913_141132.webp';
+
+const pageData = {
+  title: 'Curb Rash Repair Newport Beach | Mobile Wheel Repair | HRZ Wheel',
+  description:
+    'Professional curb rash repair in Newport Beach. Mobile wheel repair at your home or office — we come to you. Serving Newport Beach, Corona del Mar, Balboa & more. Call (626) 863-2885.',
+  image: '/og-image.png',
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'Do you offer mobile curb rash repair in Newport Beach?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes. HRZ Wheel provides mobile curb rash repair throughout Newport Beach, including Corona del Mar, Balboa Island, Balboa Peninsula, and Newport Coast. We come to your home, office, or marina parking area.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How much does curb rash repair cost in Newport Beach?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Most curb rash repairs in Newport Beach start at an affordable per-wheel rate. Final pricing depends on the severity of the damage and the number of wheels. Contact us with photos for a free quote.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Can you repair curb rash on luxury wheels in Newport Beach?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes. We regularly repair curb rash on luxury and performance wheels including BMW, Mercedes-Benz, Tesla, Audi, Porsche, and Range Rover. Our color-matching process restores the original finish.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How long does a curb rash repair take?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Most single-wheel curb rash repairs take about 45 to 90 minutes on-site. Multi-wheel repairs may take longer. We work with your schedule.',
+      },
+    },
+  ],
+};
+---
+
+<Layout title={pageData.title} description={pageData.description} image={pageData.image}>
+  <Header />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden pt-32 pb-20 px-6">
+    <div class="absolute inset-0 bg-gradient-to-br from-black via-zinc-900 to-black"></div>
+    <div class="relative mx-auto max-w-4xl text-center">
+      <h1 class="text-4xl md:text-5xl font-bold text-white mb-6">
+        Curb Rash Repair in Newport Beach
+      </h1>
+      <p class="text-lg md:text-xl text-gray-300 mb-10">
+        Mobile wheel repair that comes to you — anywhere in Newport Beach. We restore curb rash,
+        scuffs, and scratches to factory condition.
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="/quote" class="bg-gold-500 hover:bg-gold-400 text-black px-8 py-3 rounded-full font-bold transition-all transform hover:scale-105">
+          Get a Free Quote
+        </a>
+        <a href="tel:+16268632885" class="border border-gold-500 text-gold-500 hover:bg-gold-500 hover:text-black px-8 py-3 rounded-full font-bold transition-all">
+          Call or Text (626) 863-2885
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Intro -->
+  <section class="py-20 px-6">
+    <div class="mx-auto max-w-3xl">
+      <h2 class="text-3xl font-bold text-white mb-6">Newport Beach's Mobile Curb Rash Specialists</h2>
+      <p class="text-lg text-gray-400 mb-4">
+        Newport Beach's tight streets, narrow driveways, and busy parking structures are hard on
+        wheels. One wrong turn near a curb and your rim is scraped — especially on low-profile tires
+        common on luxury and performance vehicles.
+      </p>
+      <p class="text-lg text-gray-400 mb-4">
+        HRZ Wheel brings professional curb rash repair directly to you. Whether you're in Corona del
+        Mar, Balboa Island, Newport Coast, or anywhere in between, our mobile technician arrives with
+        everything needed to repair and refinish your wheels on-site.
+      </p>
+      <p class="text-lg text-gray-400">
+        No shop drop-off. No waiting days for your car. Just a fast, professional repair at your
+        home, office, or marina — usually in under two hours.
+      </p>
+    </div>
+  </section>
+
+  <!-- Before / After -->
+  <section class="py-20 px-6 bg-zinc-950">
+    <div class="mx-auto max-w-4xl">
+      <h2 class="text-3xl font-bold text-white text-center mb-4">Before & After — Newport Beach Wheel Repair</h2>
+      <p class="text-gray-400 text-center mb-10">
+        Real results from our mobile curb rash repairs.
+      </p>
+      <div class="grid gap-8 md:grid-cols-2">
+        <div class="rounded-xl overflow-hidden border border-zinc-800">
+          <Image src={beforeAfter1} alt="Curb rash repair before and after on a Ford Fusion wheel in Newport Beach" class="w-full h-auto" />
+        </div>
+        <div class="rounded-xl overflow-hidden border border-zinc-800">
+          <Image src={beforeAfter2} alt="Mobile wheel repair before and after on an alloy wheel in Newport Beach" class="w-full h-auto" />
+        </div>
+      </div>
+      <div class="text-center mt-10">
+        <a href="/gallery/" class="inline-block bg-gold-500 hover:bg-gold-400 text-black px-8 py-3 rounded-full font-bold transition-all transform hover:scale-105">
+          View Full Gallery
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="py-20 px-6">
+    <div class="mx-auto max-w-5xl">
+      <h2 class="text-3xl font-bold text-white text-center mb-12">What We Repair in Newport Beach</h2>
+      <div class="grid gap-8 md:grid-cols-3">
+        <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-8 hover:border-gold-500 transition-colors">
+          <h3 class="text-xl font-bold text-gold-500 mb-3">Curb Rash</h3>
+          <p class="text-gray-400">Scrapes and gouges from curbs, repaired and refinished to match your wheel's original finish.</p>
+        </div>
+        <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-8 hover:border-gold-500 transition-colors">
+          <h3 class="text-xl font-bold text-gold-500 mb-3">Scuffs & Scratches</h3>
+          <p class="text-gray-400">Cosmetic damage from parking, road debris, or tight spaces — restored to factory quality.</p>
+        </div>
+        <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-8 hover:border-gold-500 transition-colors">
+          <h3 class="text-xl font-bold text-gold-500 mb-3">Color Matching</h3>
+          <p class="text-gray-400">Silver, black, gunmetal, gold, and custom finishes matched precisely to your wheels.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose -->
+  <section class="py-20 px-6 bg-zinc-950">
+    <div class="mx-auto max-w-4xl">
+      <h2 class="text-3xl font-bold text-white text-center mb-12">Why Newport Beach Drivers Choose HRZ Wheel</h2>
+      <div class="grid gap-8 md:grid-cols-2">
+        <div class="flex gap-4">
+          <span class="text-gold-500 text-2xl">✓</span>
+          <div>
+            <h3 class="text-lg font-bold text-white mb-1">We Come to You</h3>
+            <p class="text-gray-400">Mobile service across Newport Beach — home, office, or marina.</p>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <span class="text-gold-500 text-2xl">✓</span>
+          <div>
+            <h3 class="text-lg font-bold text-white mb-1">Luxury Wheel Experience</h3>
+            <p class="text-gray-400">Trusted on BMW, Mercedes, Tesla, Audi, Porsche, and Range Rover wheels.</p>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <span class="text-gold-500 text-2xl">✓</span>
+          <div>
+            <h3 class="text-lg font-bold text-white mb-1">Same-Day Availability</h3>
+            <p class="text-gray-400">Many Newport Beach appointments can be scheduled same-week.</p>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <span class="text-gold-500 text-2xl">✓</span>
+          <div>
+            <h3 class="text-lg font-bold text-white mb-1">10+ Years, 5,000+ Wheels</h3>
+            <p class="text-gray-400">Proven results across Orange County and Los Angeles.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Service Areas -->
+  <section class="py-20 px-6">
+    <div class="mx-auto max-w-4xl">
+      <h2 class="text-3xl font-bold text-white text-center mb-4">Newport Beach Areas We Serve</h2>
+      <p class="text-lg text-gray-400 text-center mb-10">
+        Our mobile curb rash repair covers all of Newport Beach, including:
+      </p>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+        {['Corona del Mar', 'Balboa Island', 'Balboa Peninsula', 'Newport Coast', 'Lido Isle', 'Harbor Island', 'Eastbluff', 'Dover Shores', 'Westcliff'].map((area) => (
+          <div class="flex items-center gap-2 text-gray-300">
+            <span class="text-gold-500">&#10003;</span>
+            {area}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Internal Links -->
+  <section class="py-20 px-6 bg-zinc-950">
+    <div class="mx-auto max-w-4xl">
+      <h2 class="text-3xl font-bold text-white text-center mb-10">Explore More</h2>
+      <div class="grid gap-6 md:grid-cols-3">
+        <a href="/wheel-repair-orange-county" class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 hover:border-gold-500 transition-colors text-center">
+          <h3 class="text-lg font-bold text-gold-500 mb-2">Orange County Wheel Repair</h3>
+          <p class="text-gray-400 text-sm">Mobile wheel repair across all of Orange County.</p>
+        </a>
+        <a href="/wheel-repair-los-angeles" class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 hover:border-gold-500 transition-colors text-center">
+          <h3 class="text-lg font-bold text-gold-500 mb-2">Los Angeles Wheel Repair</h3>
+          <p class="text-gray-400 text-sm">Mobile service throughout Los Angeles County.</p>
+        </a>
+        <a href="/gallery/" class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 hover:border-gold-500 transition-colors text-center">
+          <h3 class="text-lg font-bold text-gold-500 mb-2">Before & After Gallery</h3>
+          <p class="text-gray-400 text-sm">See real results from our wheel repairs.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="py-20 px-6">
+    <div class="mx-auto max-w-3xl">
+      <h2 class="text-3xl font-bold text-white text-center mb-10">Curb Rash Repair Newport Beach — FAQ</h2>
+      <div class="space-y-6">
+        <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
+          <h3 class="text-lg font-bold text-white mb-2">Do you offer mobile curb rash repair in Newport Beach?</h3>
+          <p class="text-gray-400">Yes. HRZ Wheel provides mobile curb rash repair throughout Newport Beach, including Corona del Mar, Balboa Island, Balboa Peninsula, and Newport Coast. We come to your home, office, or marina parking area.</p>
+        </div>
+        <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
+          <h3 class="text-lg font-bold text-white mb-2">How much does curb rash repair cost in Newport Beach?</h3>
+          <p class="text-gray-400">Most curb rash repairs in Newport Beach start at an affordable per-wheel rate. Final pricing depends on the severity of the damage and the number of wheels. Contact us with photos for a free quote.</p>
+        </div>
+        <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
+          <h3 class="text-lg font-bold text-white mb-2">Can you repair curb rash on luxury wheels in Newport Beach?</h3>
+          <p class="text-gray-400">Yes. We regularly repair curb rash on luxury and performance wheels including BMW, Mercedes-Benz, Tesla, Audi, Porsche, and Range Rover. Our color-matching process restores the original finish.</p>
+        </div>
+        <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
+          <h3 class="text-lg font-bold text-white mb-2">How long does a curb rash repair take?</h3>
+          <p class="text-gray-400">Most single-wheel curb rash repairs take about 45 to 90 minutes on-site. Multi-wheel repairs may take longer. We work with your schedule.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-br from-black via-zinc-900 to-black">
+    <div class="mx-auto max-w-3xl text-center">
+      <h2 class="text-3xl font-bold text-white mb-4">Ready to Fix Your Curb Rash in Newport Beach?</h2>
+      <p class="text-lg text-gray-300 mb-8">Send us photos of the damage for a free, no-obligation quote.</p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="/quote" class="bg-gold-500 hover:bg-gold-400 text-black px-8 py-3 rounded-full font-bold transition-all transform hover:scale-105">
+          Get a Free Quote
+        </a>
+        <a href="tel:+16268632885" class="border border-gold-500 text-gold-500 hover:bg-gold-500 hover:text-black px-8 py-3 rounded-full font-bold transition-all">
+          Call (626) 863-2885
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
