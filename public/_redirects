@@ -5,4 +5,6 @@
 /*  /404.html  404
 
 # Redirects
-/contact /quote 301
+/*.html /:splat 301
+
+# (any existing redirects stay below here)
