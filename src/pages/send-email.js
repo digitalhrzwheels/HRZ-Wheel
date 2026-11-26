@@ -88,7 +88,7 @@ function generateEmailHTML({ name, phone, email, service, carModel, year, addres
         `Hi ${firstName},\n\nThanks for your quote request for ${service}` +
         `${carModel ? ` on your ${year ? year + ' ' : ''}${carModel}` : ''}.\n\n` +
         `I'd like to get you an exact price — when is a good time to talk?\n\n` +
-        `Best regards,\nHector\nHRZ Wheels\n(555) 123-4567`
+        `Best regards,\nHector\nHRZ Wheels\n(626) 863-2885`
     )}`;
 
     return `
