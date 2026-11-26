@@ -75,6 +75,22 @@ export async function POST(context) {
 }
 
 function generateEmailHTML({ name, phone, email, service, carModel, year, address, description }) {
+    const firstName = (name || '').trim().split(/\s+/)[0] || 'there';
+    const e164 = '+1' + String(phone || '').replace(/\D/g, '').slice(-10);
+
+    const smsHref = `sms:${e164}?&body=${encodeURIComponent(
+        `Hi ${firstName}, this is Hector from HRZ Wheels about your ${service} quote request. When is a good time to talk?`
+    )}`;
+
+    const mailtoHref = `mailto:${email}?subject=${encodeURIComponent(
+        `Re: Your ${service} quote request - HRZ Wheels`
+    )}&body=${encodeURIComponent(
+        `Hi ${firstName},\n\nThanks for your quote request for ${service}` +
+        `${carModel ? ` on your ${year ? year + ' ' : ''}${carModel}` : ''}.\n\n` +
+        `I'd like to get you an exact price — when is a good time to talk?\n\n` +
+        `Best regards,\nHector\nHRZ Wheels\n(555) 123-4567`
+    )}`;
+
     return `
 <!DOCTYPE html>
 <html lang="en">
@@ -146,7 +162,7 @@ function generateEmailHTML({ name, phone, email, service, carModel, year, addres
                                     <td style="padding: 18px 24px; background: linear-gradient(135deg, #fef3c7 0%, #ffffff 100%); border: 2px solid #fbbf24; border-radius: 12px;">
                                         <p style="margin: 0; color: #92400e; font-size: 11px; font-weight: 700; text-transform: uppercase;">Phone Number</p>
                                         <p style="margin: 6px 0 0 0; color: #d97706; font-size: 18px; font-weight: 800;">
-                                            <a href="tel:${phone}" style="color: #d97706; text-decoration: none;">📞 ${phone}</a>
+                                            <a href="tel:${e164}" style="color: #d97706; text-decoration: none;">📞 ${phone}</a>
                                         </p>
                                     </td>
                                 </tr>
@@ -227,11 +243,19 @@ function generateEmailHTML({ name, phone, email, service, carModel, year, addres
 
                     <tr>
                         <td style="padding: 35px 40px 45px 40px; text-align: center;">
-                            <a href="tel:${phone}" style="display: inline-block; background: linear-gradient(135deg, #f59e0b 0%, #eab308 50%, #d97706 100%); color: #000; text-decoration: none; padding: 18px 48px; border-radius: 14px; font-size: 16px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; box-shadow: 0 8px 24px rgba(245,158,11,0.35);">
+                            <a href="tel:${e164}" style="display: inline-block; background: linear-gradient(135deg, #f59e0b 0%, #eab308 50%, #d97706 100%); color: #000; text-decoration: none; padding: 18px 48px; border-radius: 14px; font-size: 16px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; box-shadow: 0 8px 24px rgba(245,158,11,0.35);">
                                 📞 CALL CUSTOMER NOW
                             </a>
-                            <p style="margin: 18px 0 0 0; color: #6b7280; font-size: 14px; font-weight: 500;">
-                                Or reply to this email to contact <strong style="color: #1f2937;">${name}</strong> directly
+                            <br>
+                            <a href="${smsHref}" style="display: inline-block; margin-top: 14px; background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%); color: #ffffff; text-decoration: none; padding: 18px 48px; border-radius: 14px; font-size: 16px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; box-shadow: 0 8px 24px rgba(30,64,175,0.3);">
+                                💬 TEXT CUSTOMER NOW
+                            </a>
+                            <br>
+                            <a href="${mailtoHref}" style="display: inline-block; margin-top: 14px; background: #ffffff; color: #92400e; text-decoration: none; padding: 16px 46px; border-radius: 14px; border: 2px solid #f59e0b; font-size: 16px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px;">
+                                ✉️ REPLY BY EMAIL
+                            </a>
+                            <p style="margin: 20px 0 0 0; color: #6b7280; font-size: 14px; font-weight: 500;">
+                                Or just hit <strong style="color: #1f2937;">Reply</strong> — it goes straight to ${name} at ${email}
                             </p>
                         </td>
                     </tr>
